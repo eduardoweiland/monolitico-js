@@ -7,6 +7,30 @@ function Program() {
 
 var rawcontent = ''; // conteúdo original do programa (como recebido no construtor)
 
+// -- static -- Propriedades e métodos estáticos da classe
+
+/**
+ * Analisa o conteúdo de @a content e retorna um vetor de Instruction's
+ * existentes.
+ *
+ * @param String conteúdo a ser analisado.
+ * @return Array Vetor de Instruction's analisadas presentes no programa.
+ *
+ * @public
+ * @static
+ */
+Program.parse = function(content) {
+    var lines = content.split('\n'),
+        instructions = [], i;
+
+    for (i = 0; i < lines.length; ++i) {
+        instructions.push(new Instruction(lines[i]));
+    }
+
+    return instructions;
+};
+
+// -- prototype -- Propriedades e métodos acessíveis pelo objeto
 Program.prototype = {
 
     /**
@@ -22,7 +46,7 @@ Program.prototype = {
      * abreviadas no formato 1:(F,2),(G,3)
      *
      * @param String content O conteúdo do programa, definido em instruções
-     *        rotuladas compostas no formato abreviado
+     *        rotuladas compostas no formato abreviado.
      */
     init: function(content) {
         rawcontent = content || '';
@@ -44,28 +68,7 @@ Program.prototype = {
         }
 
         return false;
-    },
-
-    /**
-     * Analisa o conteúdo de @a content e retorna um vetor de Instruction's
-     * existentes.
-     *
-     * @param String conteúdo a ser analisado.
-     * @return Vetor de Instruction's analisadas presentes no programa.
-     *
-     * @public
-     * @static
-     */
-    parse: function(content) {
-        var lines = content.split('\n'),
-            instructions = [], i;
-
-        for (i = 0; i < lines.length; ++i) {
-            instructions.push(new Instruction(lines[i]));
-        }
-
-        return instructions;
     }
-}
+};
 
 })();   // -- end Program closure
