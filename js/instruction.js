@@ -2,25 +2,24 @@ function Instruction() {
     this.init.apply(this, arguments);
 }
 
-// -- closure -- Variáveis privadas da classe Program
-(function() {
-
-var rawcontent = ''; // conteúdo original do programa (como recebido no construtor)
-var validRe = /([0-9w&]+):\((.+),([0-9w&]+)\),\((.+),([0-9w&]+)\)/;
-
 // -- static -- Propriedades e métodos estáticos da classe
 
-Instruction.TYPE_OPERATION    = 1;  // instrução comum (testes e operações, sem ciclos nem paradas)
-Instruction.TYPE_STOP         = 2;  // instrução que contém uma parada
-Instruction.TYPE_CYCLE        = 3;  // instrução que contém um ciclo
-Instruction.TYPE_FORMAL_STOP  = 4;  // instrução de parada para formalização (final do programa)
-Instruction.TYPE_FORMAL_CYCLE = 5;  // instrução de ciclo para formalização (final do programa)
+Instruction.TYPE_OPERATION    = 1;   // instrução comum (testes e operações, sem ciclos nem paradas)
+Instruction.TYPE_STOP         = 2;   // instrução que contém uma parada
+Instruction.TYPE_CYCLE        = 3;   // instrução que contém um ciclo
+Instruction.TYPE_FORMAL_STOP  = 4;   // instrução de parada para formalização (final do programa)
+Instruction.TYPE_FORMAL_CYCLE = 5;   // instrução de ciclo para formalização (final do programa)
 
-Instruction.LABEL_STOP_VALUE  = '&';
-Instruction.LABEL_CYCLE_VALUE = 'w';
+Instruction.LABEL_STOP_VALUE  = '&'; // valor para o rótulo de parada
+Instruction.LABEL_CYCLE_VALUE = 'w'; // valor para o rótulo de ciclo
 
-Instruction.LABEL_STOP_UTF8   = 'ε';
-Instruction.LABEL_CYCLE_UTF8  = 'ω';
+Instruction.LABEL_STOP_UTF8   = 'ε'; // representação do rótulo de parada (apenas para exibição)
+Instruction.LABEL_CYCLE_UTF8  = 'ω'; // representação do rótulo de ciclo (apenas para exibição)
+
+/**
+ * Expressão regular utilizada para validar a string que representa a instrução.
+ */
+Instruction.VALID_REGEX = /^([0-9w&]+):\((.+),([0-9w&]+)\),\((.+),([0-9w&]+)\)$/;
 
 /**
  * Analisa o conteúdo de @a content e retorna um vetor com os "pedaços" da
@@ -44,7 +43,7 @@ Instruction.LABEL_CYCLE_UTF8  = 'ω';
  */
 Instruction.parse = function(content) {
     // ignora espaços e separa os "pedaços" da instrução
-    var pieces = content.replace(/ /g, '').match(validRe);
+    var pieces = content.replace(/ /g, '').match(Instruction.VALID_REGEX);
 
     // Validação: verifica apenas o formato geral (não os valores)
     if (!(pieces && $.isArray(pieces) && pieces.length == 6)) {
@@ -61,10 +60,29 @@ Instruction.parse = function(content) {
 Instruction.prototype = {
 
     /**
+     * Conteúdo original recebido no construtor.
+     */
+    rawcontent: '',
+
+    /**
      * Tipo da instrução.
      * Armazena o tipo da instrução (operação, parada, ciclo, etc.).
      */
     type: null,
+
+    /**
+     * Rótulo da instrução.
+     * Armazena o rótulo da instrução, no formato recebido (String).
+     */
+    label: null,
+
+    firstOperation: null,
+
+    firstSucessor: null,
+
+    secondOperation: null,
+
+    secondSucessor: null,
 
     /**
      * Cria um novo programa monolítico a partir de um conjunto de instruções
@@ -75,8 +93,21 @@ Instruction.prototype = {
      *        rotuladas compostas no formato abreviado
      */
     init: function(content) {
-        rawcontent = content || '';
-        this.instructions = Instruction.parse(rawcontent);
+        this.rawcontent = content || '';
+
+        try {
+            var pieces = Instruction.parse(this.rawcontent);
+            this.label = pieces[0];
+            this.firstOperation  = pieces[1];
+            this.firstSucessor   = pieces[2];
+            this.secondOperation = pieces[3];
+            this.secondSucessor  = pieces[4];
+
+            this.type = Instruction.TYPE_OPERATION;
+        }
+        catch (e) {
+            console.error(e.message);
+        }
     },
 
     /**
@@ -88,13 +119,30 @@ Instruction.prototype = {
      * @public
      */
     isValid: function() {
-        if (rawcontent) {
-            // TODO: validação
-            return true;
+        // sem conteúdo ou conteúdo inválido
+        if (typeof(this.rawcontent) !== 'string') {
+            return false;
         }
 
-        return false;
+        // verifica se o tipo é válido
+        switch (this.type) {
+            case Instruction.TYPE_OPERATION:
+            case Instruction.TYPE_STOP:
+            case Instruction.TYPE_CYCLE:
+            case Instruction.TYPE_FORMAL_STOP:
+            case Instruction.TYPE_FORMAL_CYCLE:
+                break;
+            default:
+                return false;   // tipo inválido
+        }
+
+        // O rótulo deve ser a parada OU o ciclo OU um número decimal válido
+        if (this.label !== Instruction.LABEL_STOP_VALUE
+            && this.label !== Instruction.LABEL_CYCLE_VALUE
+            && isNaN(parseInt(this.label, 10))) {
+            return false;
+        }
+
+        return true;
     }
 };
-
-})();   // -- end Instruction closure

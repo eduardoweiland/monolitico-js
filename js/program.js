@@ -2,11 +2,6 @@ function Program() {
     this.init.apply(this, arguments);
 }
 
-// -- closure -- Variáveis privadas da classe Program
-(function() {
-
-var rawcontent = ''; // conteúdo original do programa (como recebido no construtor)
-
 // -- static -- Propriedades e métodos estáticos da classe
 
 /**
@@ -34,6 +29,11 @@ Program.parse = function(content) {
 Program.prototype = {
 
     /**
+     * Conteúdo original recebido no construtor.
+     */
+    rawcontent: '',
+
+    /**
      * Vetor de instruções.
      * Armazena todas as instruções rotuladas do programa. Os dados são
      * armazenados como objetos do tipo Instruction.
@@ -49,8 +49,8 @@ Program.prototype = {
      *        rotuladas compostas no formato abreviado.
      */
     init: function(content) {
-        rawcontent = content || '';
-        this.instructions = Program.parse(rawcontent);
+        this.rawcontent = content || '';
+        this.instructions = Program.parse(this.rawcontent);
     },
 
     /**
@@ -62,13 +62,41 @@ Program.prototype = {
      * @public
      */
     isValid: function() {
-        if (rawcontent) {
-            // TODO: validação
-            return true;
+        var valid = false,
+            ln = this.instructions.length,
+            i;
+
+        if (ln !== 0) {
+            valid = true;
+            for (i = 0; i < ln; ++i) {
+                valid = valid && this.instructions[i].isValid();
+            }
         }
 
-        return false;
+        return valid;
+    },
+
+    /**
+     * Método que realiza a verificação de equivalência.
+     *
+     * A verificação será feita considerando-se que o programa this vêm antes do
+     * programa @a other.
+     *
+     * @param Program other Outro programa com o qual esse será comparado.
+     * @param Boolean verbose Se deve ser exibido o passo-a-passo da verificação.
+     *
+     * @return Boolean Retorna true se os programas forem equivalentes, false em
+     *  caso contrário. (Obs.: false também pode significar que um dos programas
+     *  era inválido).
+     *
+     * @public
+     */
+    compareTo: function(other, verbose) {
+        // Não realiza a verificação se um dos programas for inválido.
+        if (!this.isValid() || !other.isValid()) {
+            return false;
+        }
+
+        // TODO: a "verificação de equivalência forte entre os programas monolíticos" deve vir aqui
     }
 };
-
-})();   // -- end Program closure
