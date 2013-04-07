@@ -73,6 +73,10 @@ Program.prototype = {
             }
         }
 
+        // TODO: verificar se não há rótulos repetidos
+        // TODO: verificar se a última instrução é a instrução de formalização
+        //   `- TODO: verificar se é realmente obrigatório a instrução de formalização
+
         return valid;
     },
 
@@ -96,6 +100,10 @@ Program.prototype = {
         if (!this.isValid() || !other.isValid()) {
             return false;
         }
+
+        // a última instrução (de formalização) de cada programa é descartada
+        var first  = this.instructions.slice(0, -1),
+            second = other.instructions.slice(0, -1);
 
         // TODO: a "verificação de equivalência forte entre os programas monolíticos" deve vir aqui
     }

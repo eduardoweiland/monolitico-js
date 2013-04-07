@@ -2,34 +2,44 @@
 <html lang="pt-BR">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>MonoliticoJS</title>
-<meta name="description" content="MonoliticoJS - Verificação de equivalência forte entre programas monolíticos">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>MonoliticoJS</title>
+    <meta name="description" content="MonoliticoJS - Verificação de equivalência forte entre programas monolíticos">
 
-<!-- Styles -->
-<link rel="stylesheet" type="text/css" media="all" href="style.css" />
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" media="all" href="theme/jquery-ui-1.10.2.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="style.css" />
 
-<!-- Scripts -->
-<script type="text/javascript" src="libs/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="js/instruction.js"></script>
-<script type="text/javascript" src="js/program.js"></script>
-<script type="text/javascript" src="app.js"></script>
+    <!-- Scripts -->
+    <script type="text/javascript" src="libs/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="libs/jquery-ui-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/instruction.js"></script>
+    <script type="text/javascript" src="js/program.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 </head>
 
 <body>
-<textarea id="programa1" style="width:40%;height:150px">1: (F,2),(F,2)
-2: (G,3),(F,4)
-3: (F,2),(parada,&)
-4: (G,5),(F,4)
-5: (G,5),(parada,&)
-&: (parada,&),(parada,&)</textarea>
-<textarea id="programa2" style="width:40%;height:150px">6: (F,7),(F,7)
-7: (G,8),(F,7)
-8: (F,7),(parada,&)
-&: (parada,&),(parada,&)</textarea>
-<br/><button id="test">TESTAR</button>
+    <div id="program-definition">
+        <div style="float:left">Criar programa 1</div>
+        <div style="float:right">Criar programa 2</div>
+        <button style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
+    </div>
 
-<p>..</p>
-
+    <div id="create-instruction" style="display: none;">
+        <div style="float:left">
+            <input type="radio" name="instruction-type" id="operation"><label for="operation">Operação</label><br/>
+            faça <input type="text"> vá_para <input type="text"><br/>
+            <input type="radio" name="instruction-type" id="condition"><label for="condition">Condição</label><br/>
+            se <input type="text"> então vá_para <input type="text"> senão vá_para <input type="text">
+        </div>
+        <div style="float:right">
+            <ul class="instruction-list">
+            <li>1: faça F vá_para 2</li>
+            <li>2: se T então vá_para 3 senão vá_para 4</li>
+            <li>3: faça G vá_para 0</li>
+            <li>4: faça H vá_para 2</li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>

@@ -85,12 +85,12 @@ Instruction.prototype = {
     secondSucessor: null,
 
     /**
-     * Cria um novo programa monolítico a partir de um conjunto de instruções
-     * rotuladas compostas. No primeiro momento, são aceitas apenas instruções
-     * abreviadas no formato 1:(F,2),(G,3)
+     * Cria uma nova instrução de um programa monolítico a partir de uma string
+     * contendo a definição da instruçção no seguinte formato:
+     *            1:(F,2),(G,3)
      *
-     * @param String content O conteúdo do programa, definido em instruções
-     *        rotuladas compostas no formato abreviado
+     * @param String content A definição da instrução
+     * @see Instruction.VALID_REGEX
      */
     init: function(content) {
         this.rawcontent = content || '';
@@ -111,10 +111,10 @@ Instruction.prototype = {
     },
 
     /**
-     * Verifica se o programa como está definido atualmente é válido
+     * Verifica se a instrução como está definida atualmente é válida
      * estuturalmente.
      *
-     * @return Boolean Se o programa é válido ou não.
+     * @return Boolean Se a instrução é válida ou não.
      *
      * @public
      */
@@ -131,7 +131,7 @@ Instruction.prototype = {
             case Instruction.TYPE_CYCLE:
             case Instruction.TYPE_FORMAL_STOP:
             case Instruction.TYPE_FORMAL_CYCLE:
-                break;
+                break;  // OK
             default:
                 return false;   // tipo inválido
         }
