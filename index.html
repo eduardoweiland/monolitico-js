@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MonoliticoJS</title>
     <meta name="description" content="MonoliticoJS - Verificação de equivalência forte entre programas monolíticos">
 
@@ -19,27 +20,33 @@
 </head>
 
 <body>
-    <div id="program-definition">
-        <div style="float:left">Criar programa 1</div>
-        <div style="float:right">Criar programa 2</div>
-        <button style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
-    </div>
+    <header><!-- TODO: cabeçalho com informações e link de ajuda --></header>
 
-    <div id="create-instruction" style="display: none;">
-        <div style="float:left">
-            <input type="radio" name="instruction-type" id="operation"><label for="operation">Operação</label><br/>
-            faça <input type="text"> vá_para <input type="text"><br/>
-            <input type="radio" name="instruction-type" id="condition"><label for="condition">Condição</label><br/>
-            se <input type="text"> então vá_para <input type="text"> senão vá_para <input type="text">
+    <div id="main-content">
+        <div id="program-definition">
+            <div id="program1" style="float:left">Criar programa 1</div>
+            <div id="program2" style="float:right">Criar programa 2</div>
+            <button style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
         </div>
-        <div style="float:right">
+
+        <div id="create-program" title="Criar programa monolítico">
+            <div style="float:left">
+                <input type="radio" name="instruction-type" id="operation"><label for="operation">Operação</label><br/>
+                faça <input type="text"> vá_para <input type="text"><br/>
+                <input type="radio" name="instruction-type" id="condition"><label for="condition">Condição</label><br/>
+                se <input type="text"> então vá_para <input type="text"> senão vá_para <input type="text">
+            </div>
             <ul class="instruction-list">
-            <li>1: faça F vá_para 2</li>
-            <li>2: se T então vá_para 3 senão vá_para 4</li>
-            <li>3: faça G vá_para 0</li>
-            <li>4: faça H vá_para 2</li>
+                <li class="selected">1: faça F vá_para 2</li>
+                <li>2: se T então vá_para 3 senão vá_para 4</li>
+                <li>3: faça G vá_para 0</li>
+                <li>4: faça H vá_para 2</li>
             </ul>
         </div>
+
+        <img id="loading" src="images/loading.gif" style="display:block;margin:0 auto;padding:15px" />
     </div>
+
+    <footer><!-- TODO: créditos e etc. --></footer>
 </body>
 </html>

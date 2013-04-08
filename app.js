@@ -1,21 +1,33 @@
 $(function() {
-    $('#test').click(function() {
-        var programa1 = new Program($('#programa1').val());
-        var programa2 = new Program($('#programa2').val());
+    $('#loading').fadeOut();
 
-        if (programa1.isValid() && programa2.isValid()) {
-            console.log('Os dois programas são válidos');
+    $('button').button();
 
-            if (programa1.compareTo(programa2)) {
-                console.log('Os dois programas são equivalentes');
+    $('#create-program').dialog({
+        width: 830,
+        height: 420,
+        show: 'fade',
+        hide: 'fade',
+        modal: true,
+        autoOpen: false,
+        buttons: [{
+            text: 'Cancelar',
+            click: function() {
+                $(this).dialog('close');
             }
-            else {
-                console.log('Programas não são equivalentes');
+        },{
+            text: 'OK',
+            click: function() {
+                // definir programa...
+                $(this).dialog('close');
             }
-        }
-        else {
-            console.log('Programas são inválidos');
-        }
+        }]
+    });
 
+    $('#program1').click(function() {
+        $('#create-program').dialog('open')
+    });
+    $('#program2').click(function() {
+        $('#create-program').dialog('open')
     });
 });

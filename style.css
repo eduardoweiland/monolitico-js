@@ -1,3 +1,5 @@
+@import url('http://fonts.googleapis.com/css?family=Noto+Sans');
+
 /*-------------------------------------------------------+
  | CSS RESET (http://meyerweb.com/eric/tools/css/reset/) |
  +-------------------------------------------------------*/
@@ -46,10 +48,59 @@ table {
     border-spacing: 0;
 }
 
-/*---------------------------+
- | CREATE INSTRUCTION DIALOG |
- +---------------------------*/
-#create-instruction input[type="text"] {
-    width: 40px;
+/*----------------+
+ | DEFAULT STYLES |
+ +----------------*/
+body {
+    background-image: url('images/bg.jpg');
+    color: #edd;
+    font-size: .9em;
+}
+* {
+    font-family: 'Noto Sans', Cantarell, Verdana, sans-serif !important;
 }
 
+/* melhora a exibição do título dos diálogos */
+.ui-dialog .ui-dialog-title {
+    line-height: 130%;
+}
+
+/*--------------+
+ | MAIN CONTENT |
+ +--------------*/
+#main-content {
+    width: 80%;
+    max-width: 890px;
+    margin: 0 auto;
+    padding: 1.2em .6em;
+}
+
+/*-----------------------+
+ | CREATE PROGRAM DIALOG |
+ +-----------------------*/
+#create-program input[type="text"] {
+    width: 40px;
+}
+#create-program ul.instruction-list {
+    display: block;
+    float: right;
+    height: 100%;
+    width: 310px;
+    border-left: 1px solid #aaa;
+    padding: 2px 5px 3px 13px;
+    overflow: auto;
+}
+#create-program ul.instruction-list li {
+    padding: 2px;
+    line-height: 125%;
+    cursor: pointer;
+    font-family: monospace !important;
+}
+#create-program ul.instruction-list li:hover {
+    background-color: #ddf;
+}
+#create-program ul.instruction-list li.selected {
+    background-color: #5bf;
+    color: #fff;
+    font-weight: bold;
+}
