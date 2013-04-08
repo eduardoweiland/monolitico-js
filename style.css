@@ -1,51 +1,23 @@
 @import url('http://fonts.googleapis.com/css?family=Noto+Sans');
 
-/*-------------------------------------------------------+
- | CSS RESET (http://meyerweb.com/eric/tools/css/reset/) |
- +-------------------------------------------------------*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+/*-------------------------------------------+
+ | MINIMAL CSS RESET                         |
+ | http://meyerweb.com/eric/tools/css/reset/ |
+ | https://cssboss.com/reset/                |
+ +-------------------------------------------*/
+html,body,div,ul,li,
+h1,h2,h3,h4,h5,p,span {
+     margin: 0;
+     padding: 0;
+     border: 0;
 }
+ul, li { list-style: none; }
+body { line-height: 1; }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
-}
-body {
-    line-height: 1;
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
 }
 
 /*----------------+
@@ -53,7 +25,6 @@ table {
  +----------------*/
 body {
     background-image: url('images/bg.jpg');
-    color: #edd;
     font-size: .9em;
 }
 * {
@@ -65,6 +36,29 @@ body {
     line-height: 130%;
 }
 
+/*--------+
+ | HEADER |
+ +--------*/
+header {
+    height: 65px;
+    padding-top: 20px;
+    box-shadow: 0 3px 5px #222;
+    background-image: url('images/header.jpg');
+}
+
+header h1 {
+    display: inline-block;
+    font-size: 2.7em;
+    font-variant: small-caps;
+    text-shadow: 1px 2px 0 #888;
+    margin-left: 15%;
+}
+header div#header-buttons {
+    float: right;
+    margin-right: 15%;
+    display: inline-block;
+}
+
 /*--------------+
  | MAIN CONTENT |
  +--------------*/
@@ -73,6 +67,7 @@ body {
     max-width: 890px;
     margin: 0 auto;
     padding: 1.2em .6em;
+    color: #edd;
 }
 
 /*-----------------------+

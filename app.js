@@ -2,12 +2,15 @@ $(function() {
     $('#loading').fadeOut();
 
     $('button').button();
+    $('#help').button('option', 'icons', {primary: 'ui-icon-help'});
+    $('#about').button('option', 'icons', {primary: 'ui-icon-info'});
 
     $('#create-program').dialog({
-        width: 830,
+        width: 760,
         height: 420,
         show: 'fade',
         hide: 'fade',
+        resizable: false,
         modal: true,
         autoOpen: false,
         buttons: [{
@@ -30,4 +33,8 @@ $(function() {
     $('#program2').click(function() {
         $('#create-program').dialog('open')
     });
+    $('#verify').button('disable');
+
+    $('#about').click(function() { alert('FALTA IMPLEMENTAR!!!!'); });
+    $('#help').click(function() { alert('FALTA IMPLEMENTAR!!!!'); });
 });

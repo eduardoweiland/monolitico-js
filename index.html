@@ -20,13 +20,19 @@
 </head>
 
 <body>
-    <header><!-- TODO: cabeçalho com informações e link de ajuda --></header>
+    <header>
+        <h1>MonoliticoJS</h1>
+        <div id="header-buttons">
+            <button id="help">Ajuda</button>
+            <button id="about">Sobre</button>
+        </div>
+    </header>
 
     <div id="main-content">
         <div id="program-definition">
             <div id="program1" style="float:left">Criar programa 1</div>
             <div id="program2" style="float:right">Criar programa 2</div>
-            <button style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
+            <button id="verify" style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
         </div>
 
         <div id="create-program" title="Criar programa monolítico">
@@ -46,7 +52,5 @@
 
         <img id="loading" src="images/loading.gif" style="display:block;margin:0 auto;padding:15px" />
     </div>
-
-    <footer><!-- TODO: créditos e etc. --></footer>
 </body>
 </html>
