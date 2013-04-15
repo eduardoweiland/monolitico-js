@@ -22,20 +22,20 @@
 <body>
     <header>
         <h1>MonoliticoJS</h1>
-        <div id="header-buttons">
+        <div id="header-buttons" class="js">
             <button id="help">Ajuda</button>
             <button id="about">Sobre</button>
         </div>
     </header>
 
     <div id="main-content">
-        <div id="program-definition">
-            <div id="program1" style="float:left">Criar programa 1</div>
-            <div id="program2" style="float:right">Criar programa 2</div>
+        <div id="program-definition" class="js">
+            <div id="program1" class="program empty" style="float:left"><a href="javascript:;">Criar programa 1</a></div>
+            <div id="program2" class="program empty" style="float:right"><a href="javascript:;">Criar programa 2</a></div>
             <button id="verify" style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
         </div>
 
-        <div id="create-program" title="Criar programa monolítico">
+        <div id="create-program" title="Criar programa monolítico" class="js">
             <div style="float:left">
                 <input type="radio" name="instruction-type" id="operation"><label for="operation">Operação</label><br/>
                 faça <input type="text"> vá_para <input type="text"><br/>
@@ -50,7 +50,16 @@
             </ul>
         </div>
 
-        <img id="loading" src="images/loading.gif" style="display:block;margin:0 auto;padding:15px" />
+        <!--<img id="loading" src="images/loading.gif" style="display:block;margin:0 auto;padding:15px" />-->
+        <div class="ui-widget nojs">
+            <div class="ui-state-error ui-corner-all" style="padding: 1.2em 1.5em;">
+                <p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>
+                    <strong>JAVASCRIPT DESABILITADO</strong></p>
+                <p>O MonoliticoJS não conseguiu rodar porque o seu navegador bloqueou os nossos scripts.
+                    <span class="smile" style="margin-left:10px">:(</span></p>
+                <p>Verifique as suas configurações e então atualize a página para tentar novamente.</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

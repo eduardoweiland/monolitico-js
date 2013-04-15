@@ -1,4 +1,7 @@
 $(function() {
+    // oculta as mensagens que são exibidas se o JS estiver desabilitado e exibe o programa
+    $('.nojs').hide();
+    $('.js').fadeIn();
     $('#loading').fadeOut();
 
     $('button').button();
