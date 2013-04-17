@@ -14,6 +14,7 @@
     <!-- Scripts -->
     <script type="text/javascript" src="libs/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="libs/jquery-ui-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/dialogs.js"></script>
     <script type="text/javascript" src="js/instruction.js"></script>
     <script type="text/javascript" src="js/program.js"></script>
     <script type="text/javascript" src="app.js"></script>
@@ -33,21 +34,6 @@
             <div id="program1" class="program empty" style="float:left"><a href="javascript:;">Criar programa 1</a></div>
             <div id="program2" class="program empty" style="float:right"><a href="javascript:;">Criar programa 2</a></div>
             <button id="verify" style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
-        </div>
-
-        <div id="create-program" title="Criar programa monolítico" class="js">
-            <div style="float:left">
-                <input type="radio" name="instruction-type" id="operation"><label for="operation">Operação</label><br/>
-                faça <input type="text"> vá_para <input type="text"><br/>
-                <input type="radio" name="instruction-type" id="condition"><label for="condition">Condição</label><br/>
-                se <input type="text"> então vá_para <input type="text"> senão vá_para <input type="text">
-            </div>
-            <ul class="instruction-list">
-                <li class="selected">1: faça F vá_para 2</li>
-                <li>2: se T então vá_para 3 senão vá_para 4</li>
-                <li>3: faça G vá_para 0</li>
-                <li>4: faça H vá_para 2</li>
-            </ul>
         </div>
 
         <!--<img id="loading" src="images/loading.gif" style="display:block;margin:0 auto;padding:15px" />-->

@@ -8,36 +8,18 @@ $(function() {
     $('#help').button('option', 'icons', {primary: 'ui-icon-help'});
     $('#about').button('option', 'icons', {primary: 'ui-icon-info'});
 
-    $('#create-program').dialog({
-        width: 760,
-        height: 420,
-        show: 'fade',
-        hide: 'fade',
-        resizable: false,
-        modal: true,
-        autoOpen: false,
-        buttons: [{
-            text: 'Cancelar',
-            click: function() {
-                $(this).dialog('close');
-            }
-        },{
-            text: 'OK',
-            click: function() {
-                // definir programa...
-                $(this).dialog('close');
-            }
-        }]
-    });
-
     $('#program1').click(function() {
-        $('#create-program').dialog('open')
+        showCreateProgramDialog(function(program) {
+            $('#program1').html(program);
+        });
     });
     $('#program2').click(function() {
-        $('#create-program').dialog('open')
+        showCreateProgramDialog(function(program) {
+            $('#program2').html(program);
+        });
     });
     $('#verify').button('disable');
 
-    $('#about').click(function() { alert('FALTA IMPLEMENTAR!!!!'); });
-    $('#help').click(function() { alert('FALTA IMPLEMENTAR!!!!'); });
+    $('#about').click(function() { showAboutDialog(); });
+    $('#help') .click(function() { showHelpDialog(); });
 });

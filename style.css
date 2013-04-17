@@ -1,18 +1,20 @@
 @import url('http://fonts.googleapis.com/css?family=Noto+Sans');
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
 
 /*-------------------------------------------+
  | MINIMAL CSS RESET                         |
  | http://meyerweb.com/eric/tools/css/reset/ |
  | https://cssboss.com/reset/                |
  +-------------------------------------------*/
-html,body,div,ul,li,
-h1,h2,h3,h4,h5,p,span {
+html, body, div, ul, li,
+h1, h2, h3, h4, h5, p, span {
      margin: 0;
      padding: 0;
      border: 0;
 }
 ul, li { list-style: none; }
 body { line-height: 1.2; }
+p { padding: .3em 0; }
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -28,8 +30,8 @@ body {
     font-size: .9em;
 }
 * { font-family: 'Noto Sans', Cantarell, Verdana, sans-serif !important; }
-*:hover > a { text-decoration: underline; }
-a, a:active, a:visited { color: #edd; text-decoration: none; }
+/* *:hover > a { text-decoration: underline; }*/
+a, a:active, a:visited { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 .smile { display: inline-block; transform: rotate(90deg); }
@@ -90,11 +92,19 @@ header div#header-buttons {
     text-align: center;
     vertical-align: middle;
 }
+#program-definition .program * {
+    color: #edd;
+}
 
 /*-----------------------+
  | CREATE PROGRAM DIALOG |
  +-----------------------*/
-#create-program input[type="text"] {
+#create-program .create-instruction {
+    float: left;
+    height: 100%;
+    width: 400px;
+}
+#create-program .create-instruction input[type="text"] {
     width: 40px;
 }
 #create-program ul.instruction-list {
@@ -110,7 +120,8 @@ header div#header-buttons {
     padding: 2px;
     line-height: 125%;
     cursor: pointer;
-    font-family: monospace !important;
+    font-family: 'Source Code Pro', monospace !important;
+    font-size: 12px;
 }
 #create-program ul.instruction-list li:hover {
     background-color: #ddf;
