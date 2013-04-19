@@ -42,13 +42,23 @@ a:hover { text-decoration: underline; }
 /* componentes que necessitam de Javascript para funcionar iniciam ocultos */
 .js { display: none; }
 
+input[type="text"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+
+    border: 1px solid #222;
+}
+input[type="text"]:focus { border-color: #38d; }
+
 /*--------+
  | HEADER |
  +--------*/
 header {
-    height: 65px;
     width: 100%;
-    padding-top: 20px;
+    padding: 20px;
     box-shadow: 0 3px 5px #222;
     background-image: url('images/header.jpg');
     position: fixed;
@@ -64,6 +74,7 @@ header h1 {
 header div#header-buttons {
     float: right;
     margin-right: 15%;
+    padding: 7px;
 }
 
 /*--------------+
@@ -73,7 +84,7 @@ header div#header-buttons {
     width: 80%;
     max-width: 890px;
     margin: 0 auto;
-    padding: 100px 25px 10px 25px;
+    padding: 125px 25px 10px 25px;
     color: #edd;
 }
 #program-definition .program {
@@ -85,6 +96,18 @@ header div#header-buttons {
     margin: 20px;
     background-color: #4f4f4f;
     background-color: rgba(255,255,255,.15);
+    
+    -webkit-transition: box-shadow .2s;
+    -moz-transition:    box-shadow .2s;
+    -ms-transition:     box-shadow .2s;
+    -o-transition:      box-shadow .2s;
+    transition:         box-shadow .2s;
+}
+#program-definition .program:hover {
+    box-shadow: 0 3px 2px black;
+}
+#program-definition .program:active {
+    box-shadow: 0 2px 5px black inset;
 }
 #program-definition .program.empty {
     text-align: center;
