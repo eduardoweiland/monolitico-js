@@ -50,6 +50,17 @@ ProgramDialog.prototype = {
         }]
     },
 
+    populateFields: function(value){
+
+        $('#operation-name').val(value.operation);
+        $('#operation-nextLabel').val(value.nextLabel);
+        $('#condition-testName').val(value.testName);
+        $('#condition-trueLabel').val(value.trueLabel);
+        $('#condition-falseLabel').val(value.falseLabel);
+        
+    },
+
+
     /**
      * Vetor que armazena todas as instruções criadas na tela na forma de objetos.
      */
@@ -60,11 +71,16 @@ ProgramDialog.prototype = {
      */
     selectedIndex: -1,
 
-    toggleSelection: function() {
+    toggleSelection: function(me) {
         var wasSelected = $(this).hasClass('selected');
         $('.instruction-list li.selected').removeClass('selected');
         if (!wasSelected) {
             $(this).addClass('selected');
+            me.selectedIndex = $(this).index();
+            me.populateFields(me.instructions[me.selectedIndex]);
+        }else{
+            
+            me.populateFields({});
         }
     },
 
@@ -116,6 +132,7 @@ ProgramDialog.prototype = {
             }else if($('#condition').is(':checked')){
                 me.appendInstruction(new SimpleInstruction(SimpleInstruction.TYPE_TEST,$("#condition-testName").val(),$("#condition-trueLabel").val(),$("#condition-falseLabel").val()))
             }
+            me.populateFields({});
         });
 
         $('#update-instruction').button({
@@ -131,17 +148,19 @@ ProgramDialog.prototype = {
      *
      * @param Instruction content O conteúdo da instrução a ser criada.
      */
-    appendInstruction: function(content) {
-        this.instructions.push(content);
+    appendInstruction: function(content) 
+    {
+        var me = this;
+        me.instructions.push(content);
         // atualizar lista
         if($('#instruction-list').hasClass('empty'))
         {
             $('#instruction-list').empty();
             $('#instruction-list').removeClass('empty');
         }
-        $('<li>'+this.instructions.length+': '+content.toString()+'</li>')
+        $('<li>'+me.instructions.length+': '+content.toString()+'</li>')
             .appendTo('#instruction-list')
-            .click(this.toggleSelection);
+            .click(function(){me.toggleSelection.call(this,me)});
     },
 
     /**
