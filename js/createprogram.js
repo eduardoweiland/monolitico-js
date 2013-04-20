@@ -1,5 +1,5 @@
 function ProgramDialog(instructions, callback) {
-    this.init(callback);
+     this.init.apply(this, arguments);
 }
 
 ProgramDialog.prototype = {
@@ -10,11 +10,11 @@ ProgramDialog.prototype = {
          +   '<div class="create-instruction">'
          +       '<div id="add-operation">'
          +           '<input type="radio" name="instruction-type" id="operation"><label for="operation">Operação</label><br/>'
-         +           'faça <input type="text"> vá_para <input type="text"><br/>'
+         +           'faça <input type="text" id="operation-name"> vá_para <input type="text" id="operation-nextLabel"><br/>'
          +       '</div>'
          +       '<div id="add-condition">'
          +           '<input type="radio" name="instruction-type" id="condition"><label for="condition">Condição</label><br/>'
-         +           'se <input type="text"> então vá_para <input type="text"> senão vá_para <input type="text">'
+         +           'se <input type="text" id="condition-testName"> então vá_para <input type="text" id="condition-trueLabel"> senão vá_para <input type="text" id="condition-falseLabel">'
          +       '</div>'
          +       '<div id="action-buttons">'
          +           '<button id="delete-instruction">Excluir</button>'
@@ -22,7 +22,7 @@ ProgramDialog.prototype = {
          +           '<button id="update-instruction">Atualizar</button>'
          +       '</div>'
          +   '</div>'
-         +   '<ul class="instruction-list empty">Nenhuma instrução adicionada</ul>'
+         +   '<ul class="instruction-list empty" id="instruction-list">Nenhuma instrução adicionada</ul>'
          + '</div>',
 
     /**
@@ -76,6 +76,7 @@ ProgramDialog.prototype = {
      * Construtor.
      */
     init: function(instructions, callback) {
+        var me = this;
         this.instructions = instructions;
         $(this.html).dialog(this.config);
 
@@ -87,9 +88,15 @@ ProgramDialog.prototype = {
         }).hide();
 
         $('#insert-instruction').button({
-            icons: {primary: 'ui-icon-circle-plus'},
-            click: function() {
-                //
+            icons: {primary: 'ui-icon-circle-plus'}
+        });
+        $('#insert-instruction').click(function() {
+            //
+            if($('#operation').is(':checked')){
+                me.appendInstruction(new SimpleInstruction(SimpleInstruction.TYPE_OPERATION,$("#operation-name").val(),$("#operation-nextLabel").val()))
+
+            }else if($('#condition').is(':checked')){
+                me.appendInstruction(new SimpleInstruction(SimpleInstruction.TYPE_TEST,$("#condition-testName").val(),$("#condition-trueLabel").val(),$("#condition-falseLabel").val()))
             }
         });
 
@@ -109,6 +116,19 @@ ProgramDialog.prototype = {
     appendInstruction: function(content) {
         this.instructions.push(content);
         // atualizar lista
+        if($('#instruction-list').hasClass('empty'))
+        {
+            $('#instruction-list').empty();
+            $('#instruction-list').removeClass('empty');
+        }
+        $('<li>'+this.instructions.length+': '+content.toString()+'</li>').appendTo('#instruction-list')
+        .click(function() {
+            var wasSelected = $(this).hasClass('selected');
+            $('.instruction-list li.selected').removeClass('selected');
+            if (!wasSelected) {
+                $(this).addClass('selected');
+            }
+        });
     },
 
     /**

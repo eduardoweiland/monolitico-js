@@ -77,5 +77,15 @@ SimpleInstruction.prototype = {
         }
 
         this.type = type;
+    },
+    
+    toString: function()
+    {
+        if (this.type === SimpleInstruction.TYPE_OPERATION) {
+            return 'faça '+this.operation+' va_para '+this.nextLabel;
+        }
+        else if (this.type === SimpleInstruction.TYPE_TEST) {
+            return 'se '+this.testName+' entao vá_para '+this.trueLabel+' senão vá_para '+this.falseLabel;
+        }
     }
-};
+}
