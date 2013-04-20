@@ -42,8 +42,8 @@ ProgramDialog.prototype = {
         },{
             text: 'OK',
             click: function() {
-                if (typeof callback === 'function') {
-                    callback(this.toString());
+                if (typeof this.JSobj.callback === 'function') {
+                    this.JSobj.callback(this.JSobj.toString());
                 }
                 $(this).dialog('close');
             }
@@ -63,13 +63,18 @@ ProgramDialog.prototype = {
     toggleSelection: function() {
     },
 
+    callback: null,
+
     /**
      * Converte as @{link ProgramDialog#instructions} em uma string própria para
      * exibição na tela para o usuário.
      */
     toString: function() {
-        // TODO: converter para string...
-        return 'isso é um teste';
+        var string = '', i;
+        for (i = 0; i < this.instructions.length; ++i) {
+            string += (i + 1) + ': ' + this.instructions[i].toString() + '<br/>';
+        }
+        return string;
     },
 
     /**
@@ -78,7 +83,10 @@ ProgramDialog.prototype = {
     init: function(instructions, callback) {
         var me = this;
         this.instructions = instructions;
+        this.callback = callback;
+
         $(this.html).dialog(this.config);
+        document.getElementById('create-program').JSobj = this;
 
         $('#delete-instruction').button({
             icons: {primary: 'ui-icon-circle-close'},

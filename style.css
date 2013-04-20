@@ -48,9 +48,11 @@ input[type="text"] {
     -o-appearance: none;
     appearance: none;
 
-    border: 1px solid #333;
+    border: 1px solid #555;
+    margin: 2px;
 }
 input[type="text"]:focus { border-color: #38d; outline: none; }
+input[type="radio"] { margin-left: 0; }
 
 /*--------+
  | HEADER |
@@ -65,7 +67,7 @@ header {
 
 header h1 {
     display: inline-block;
-    font-size: 2.7em;
+    font-size: 3.2em;
     font-variant: small-caps;
     text-shadow: 1px 2px 0 #888;
     margin-left: 15%;
@@ -123,6 +125,9 @@ header div#header-buttons {
     float: left;
     /*height: 100%;*/
     /*width: 400px;*/
+}
+#create-program .create-instruction div {
+    margin: 7px 0 10px 0;
 }
 #create-program .create-instruction input[type="text"] {
     width: 40px;
