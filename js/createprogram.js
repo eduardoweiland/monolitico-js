@@ -78,9 +78,15 @@ ProgramDialog.prototype = {
             $(this).addClass('selected');
             me.selectedIndex = $(this).index();
             me.populateFields(me.instructions[me.selectedIndex]);
+            $('#update-instruction').show();
+            $('#delete-instruction').show();
+            $('#insert-instruction').hide();
         }else{
             
             me.populateFields({});
+            $('#update-instruction').hide();
+            $('#delete-instruction').hide();
+            $('#insert-instruction').show();
         }
     },
 
@@ -136,11 +142,18 @@ ProgramDialog.prototype = {
         });
 
         $('#update-instruction').button({
-            icons: {primary: 'ui-icon-circle-check'},
-            click: function() {
-                //
-            }
+            icons: {primary: 'ui-icon-circle-check'}
         }).hide();
+            $('#update-instruction').click(function() {
+            //
+            if($('#operation').is(':checked')){
+                me.updateInstruction(me.selectedIndex,new SimpleInstruction(SimpleInstruction.TYPE_OPERATION,$("#operation-name").val(),$("#operation-nextLabel").val()))
+
+            }else if($('#condition').is(':checked')){
+                me.updateInstruction(me.selectedIndex,new SimpleInstruction(SimpleInstruction.TYPE_TEST,$("#condition-testName").val(),$("#condition-trueLabel").val(),$("#condition-falseLabel").val()))
+            }
+            me.populateFields({});
+        });
     },
 
     /**
@@ -173,6 +186,9 @@ ProgramDialog.prototype = {
     updateInstruction: function(index, content) {
         this.instructions[index] = content;
         // atualizar lista
+        console.log($('#instruction-list').get(index));
+        $($('#instruction-list').get(index)).html(content.toString());
+        
     },
 
     /**
