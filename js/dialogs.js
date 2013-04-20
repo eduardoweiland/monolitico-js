@@ -2,65 +2,8 @@
  * Diálogo utilizado para criação de um programa monolítico.
  */
 function showCreateProgramDialog(callback) {
-    $('<div id="create-program" title="Criar programa monolítico" class="js">'
-    +   '<div class="create-instruction">'
-    +       '<div id="add-operation">'
-    +           '<input type="radio" name="instruction-type" id="operation"><label for="operation">Operação</label><br/>'
-    +           'faça <input type="text"> vá_para <input type="text"><br/>'
-    +       '</div>'
-    +       '<div id="add-condition">'
-    +           '<input type="radio" name="instruction-type" id="condition"><label for="condition">Condição</label><br/>'
-    +           'se <input type="text"> então vá_para <input type="text"> senão vá_para <input type="text">'
-    +       '</div>'
-    +       '<div id="action-buttons">'
-    +           '<button id="delete-instruction">Excluir</button>'
-    +           '<button id="insert-instruction">Inserir</button>'
-    +           '<button id="update-instruction">Atualizar</button>'
-    +       '</div>'
-    +   '</div>'
-    +   '<ul class="instruction-list empty">Nenhuma instrução adicionada</ul>'
-    + '</div>').dialog({
-        show: 'fade',
-        hide: 'fade',
-        resizable: false,
-        modal: true,
-        width: 760,
-        height: 420,
-        close: function() { $(this).remove(); },
-        buttons: [{
-            text: 'Cancelar',
-            click: function() { $(this).dialog('close'); }
-        },{
-            text: 'OK',
-            click: function() {
-                if (typeof callback === 'function') {
-                    callback('blablabla');
-                }
-                $(this).dialog('close');
-            }
-        }]
-    });
+    var dialog = new ProgramDialog([], callback);
 
-    $('#delete-instruction').button({
-        icons: {primary: 'ui-icon-circle-close'},
-        click: function() {
-            //
-        }
-    });
-
-    $('#insert-instruction').button({
-        icons: {primary: 'ui-icon-circle-plus'},
-        click: function() {
-            //
-        }
-    });
-
-    $('#update-instruction').button({
-        icons: {primary: 'ui-icon-circle-check'},
-        click: function() {
-            //
-        }
-    }).hide();
 
     $('#create-program .instruction-list li').click(function() {
         var wasSelected = $(this).hasClass('selected');
@@ -86,7 +29,7 @@ function showAboutDialog() {
         show: 'fade',
         hide: 'fade',
         resizable: false,
-        modal: false,
+        modal: true,
         width: '40%',
         close: function() { $(this).remove(); },
         buttons: [{
