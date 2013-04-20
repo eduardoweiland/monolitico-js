@@ -43,7 +43,7 @@ ProgramDialog.prototype = {
             text: 'OK',
             click: function() {
                 if (typeof this.JSobj.callback === 'function') {
-                    this.JSobj.callback(this.JSobj.toString());
+                    this.JSobj.callback(this.JSobj);
                 }
                 $(this).dialog('close');
             }
@@ -61,6 +61,11 @@ ProgramDialog.prototype = {
     selectedIndex: -1,
 
     toggleSelection: function() {
+        var wasSelected = $(this).hasClass('selected');
+        $('.instruction-list li.selected').removeClass('selected');
+        if (!wasSelected) {
+            $(this).addClass('selected');
+        }
     },
 
     callback: null,
@@ -81,12 +86,17 @@ ProgramDialog.prototype = {
      * Construtor.
      */
     init: function(instructions, callback) {
-        var me = this;
-        this.instructions = instructions;
+        var me = this, i;
         this.callback = callback;
+        this.instructions = [];
 
         $(this.html).dialog(this.config);
         document.getElementById('create-program').JSobj = this;
+
+        var instructionsCopy = instructions.slice();
+        for (i = 0; i < instructionsCopy.length; ++i) {
+            me.appendInstruction.call(me, instructionsCopy[i]);
+        }
 
         $('#delete-instruction').button({
             icons: {primary: 'ui-icon-circle-close'},
@@ -129,14 +139,9 @@ ProgramDialog.prototype = {
             $('#instruction-list').empty();
             $('#instruction-list').removeClass('empty');
         }
-        $('<li>'+this.instructions.length+': '+content.toString()+'</li>').appendTo('#instruction-list')
-        .click(function() {
-            var wasSelected = $(this).hasClass('selected');
-            $('.instruction-list li.selected').removeClass('selected');
-            if (!wasSelected) {
-                $(this).addClass('selected');
-            }
-        });
+        $('<li>'+this.instructions.length+': '+content.toString()+'</li>')
+            .appendTo('#instruction-list')
+            .click(this.toggleSelection);
     },
 
     /**

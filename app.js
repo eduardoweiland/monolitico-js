@@ -8,14 +8,18 @@ $(function() {
     $('#help').button('option', 'icons', {primary: 'ui-icon-help'});
     $('#about').button('option', 'icons', {primary: 'ui-icon-info'});
 
+    var program1instructions = [];
     $('#program1').click(function() {
-        showCreateProgramDialog(function(program) {
-            $('#program1').html(program);
+        showCreateProgramDialog(program1instructions, function(program) {
+            $('#program1').html(program.toString());
+            program1instructions = program.instructions.slice();
         });
     });
+    var program2instructions = [];
     $('#program2').click(function() {
-        showCreateProgramDialog(function(program) {
-            $('#program2').html(program);
+        showCreateProgramDialog(program2instructions, function(program) {
+            $('#program2').html(program.toString());
+            program2instructions = program.instructions.slice();
         });
     });
     $('#verify').button('disable');

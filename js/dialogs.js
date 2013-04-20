@@ -1,17 +1,8 @@
 /**
  * Diálogo utilizado para criação de um programa monolítico.
  */
-function showCreateProgramDialog(callback) {
-    var dialog = new ProgramDialog([], callback);
-
-
-    $('#create-program .instruction-list li').click(function() {
-        var wasSelected = $(this).hasClass('selected');
-        $('.instruction-list li.selected').removeClass('selected');
-        if (!wasSelected) {
-            $(this).addClass('selected');
-        }
-    });
+function showCreateProgramDialog(instructions, callback) {
+    return new ProgramDialog(instructions, callback);
 }
 
 /**
