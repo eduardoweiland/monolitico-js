@@ -24,7 +24,7 @@ footer, header, hgroup, menu, nav, section {
  +----------------*/
 body {
     background-image: url('images/bg.jpg');
-    font-size: 13px;
+    font-size: 14px;
 }
 * { font-family: 'Noto Sans', Cantarell, Verdana, sans-serif !important; }
 /* *:hover > a { text-decoration: underline; }*/
@@ -34,9 +34,7 @@ a:hover { text-decoration: underline; }
 .smile { display: inline-block; transform: rotate(90deg); }
 
 /* melhora a exibição do título dos diálogos */
-.ui-dialog .ui-dialog-title {
-    line-height: 130%;
-}
+.ui-dialog .ui-dialog-title { line-height: 130%; }
 
 /* componentes que necessitam de Javascript para funcionar iniciam ocultos */
 .js { display: none; }
@@ -67,7 +65,7 @@ header {
 
 header h1 {
     display: inline-block;
-    font-size: 3.2em;
+    font-size: 2.7em;
     font-variant: small-caps;
     text-shadow: 1px 2px 0 #888;
     margin-left: 15%;
@@ -82,8 +80,8 @@ header div#header-buttons {
  | MAIN CONTENT |
  +--------------*/
 #main-content {
-    width: 80%;
-    max-width: 890px;
+    width: 75%;
+    max-width: 830px;
     margin: 0 auto;
     padding: 125px 25px 10px 25px;
     color: #edd;
@@ -94,9 +92,9 @@ header div#header-buttons {
     cursor: pointer;
     border-radius: 15px;
     padding: 15px;
-    margin: 20px;
     background-color: #4f4f4f;
     background-color: rgba(255,255,255,.15);
+    margin: 20px 0 50px 0;
 
     -webkit-transition: box-shadow .2s;
     -moz-transition:    box-shadow .2s;
@@ -104,34 +102,25 @@ header div#header-buttons {
     -o-transition:      box-shadow .2s;
     transition:         box-shadow .2s;
 }
-#program-definition .program:hover {
-    box-shadow: 0 3px 2px black;
-}
-#program-definition .program:active {
-    box-shadow: 0 2px 5px black inset;
-}
+#program-definition .program * { color: #edd; }
+#program-definition .program:hover  { box-shadow: 0 3px 2px black; }
+#program-definition .program:active { box-shadow: 0 2px 5px black inset; }
+
 #program-definition .program.empty {
     text-align: center;
-    vertical-align: middle;
 }
-#program-definition .program * {
-    color: #edd;
+#program-definition .program.empty span {
+    position: relative;
+    top: 40%;
+    font-size: 1.8em;
 }
 
 /*-----------------------+
  | CREATE PROGRAM DIALOG |
  +-----------------------*/
-#create-program .create-instruction {
-    float: left;
-    /*height: 100%;*/
-    /*width: 400px;*/
-}
-#create-program .create-instruction div {
-    margin: 7px 0 10px 0;
-}
-#create-program .create-instruction input[type="text"] {
-    width: 40px;
-}
+#create-program .create-instruction { float: left; }
+#create-program .create-instruction div { margin: 7px 0 10px 0; }
+#create-program .create-instruction input[type="text"] { width: 40px; }
 #create-program ul.instruction-list {
     display: block;
     float: right;
@@ -148,9 +137,7 @@ header div#header-buttons {
     font-family: 'Source Code Pro', monospace !important;
     font-size: 12px;
 }
-#create-program ul.instruction-list li:hover {
-    background-color: #ddf;
-}
+#create-program ul.instruction-list li:hover { background-color: #ddf; }
 #create-program ul.instruction-list li.selected {
     background-color: #5bf;
     color: #fff;

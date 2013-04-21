@@ -49,7 +49,6 @@ CompositeInstruction.parse = function(content) {
     if (!(pieces && $.isArray(pieces) && pieces.length == 6)) {
         // TODO: classe de erro específica para o projeto
         throw new Error('Instrução inválida: ' + content);
-        return false;
     }
 
     // o índice 0 contém a instrução completa que é desnecessária, então remove

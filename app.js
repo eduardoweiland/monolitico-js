@@ -5,24 +5,41 @@ $(function() {
     $('#loading').fadeOut();
 
     $('button').button();
-    $('#help').button('option', 'icons', {primary: 'ui-icon-help'});
+    $('#help') .button('option', 'icons', {primary: 'ui-icon-help'});
     $('#about').button('option', 'icons', {primary: 'ui-icon-info'});
 
-    var program1instructions = [];
-    $('#program1').click(function() {
-        showCreateProgramDialog(program1instructions, function(program) {
-            $('#program1').html(program.toString());
-            program1instructions = program.instructions.slice();
-        });
-    });
-    var program2instructions = [];
-    $('#program2').click(function() {
-        showCreateProgramDialog(program2instructions, function(program) {
-            $('#program2').html(program.toString());
-            program2instructions = program.instructions.slice();
-        });
-    });
     $('#verify').button('disable');
+    $('#verify').click(function() {
+        $('#loading').show();
+    });
+
+    var pr1Instr = [],  // instruções do programa 1
+        pr2Instr = [];  // instruções do programa 2
+
+    var checkProgramDefined = function() {
+        var first  = (pr1Instr.length > 0),
+            second = (pr2Instr.length > 0);
+
+        $('#program1')[(first  ? 'remove' : 'add') + 'Class']('empty');
+        $('#program2')[(second ? 'remove' : 'add') + 'Class']('empty');
+        $('#verify').button(first && second ? 'enable' : 'disable');
+    }
+
+    $('#program1').click(function() {
+        showCreateProgramDialog(pr1Instr, function(program) {
+            $('#program1').html(program.toString());
+            pr1Instr = program.instructions.slice();
+            checkProgramDefined();
+        });
+    });
+
+    $('#program2').click(function() {
+        showCreateProgramDialog(pr2Instr, function(program) {
+            $('#program2').html(program.toString());
+            pr2Instr = program.instructions.slice();
+            checkProgramDefined();
+        });
+    });
 
     $('#about').click(function() { showAboutDialog(); });
     $('#help') .click(function() { showHelpDialog(); });

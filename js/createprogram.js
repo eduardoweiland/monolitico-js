@@ -1,4 +1,4 @@
-function ProgramDialog(instructions, callback) {
+function ProgramDialog() {
      this.init.apply(this, arguments);
 }
 
@@ -50,16 +50,13 @@ ProgramDialog.prototype = {
         }]
     },
 
-    populateFields: function(value){
-
-        $('#operation-name').val(value.operation);
-        $('#operation-nextLabel').val(value.nextLabel);
-        $('#condition-testName').val(value.testName);
-        $('#condition-trueLabel').val(value.trueLabel);
-        $('#condition-falseLabel').val(value.falseLabel);
-        
+    populateFields: function(instruction) {
+        $('#operation-name')      .val(instruction.operation);
+        $('#operation-nextLabel') .val(instruction.nextLabel);
+        $('#condition-testName')  .val(instruction.testName);
+        $('#condition-trueLabel') .val(instruction.trueLabel);
+        $('#condition-falseLabel').val(instruction.falseLabel);
     },
-
 
     /**
      * Vetor que armazena todas as instruções criadas na tela na forma de objetos.
@@ -73,7 +70,9 @@ ProgramDialog.prototype = {
 
     toggleSelection: function(me) {
         var wasSelected = $(this).hasClass('selected');
-        $('.instruction-list li.selected').removeClass('selected');
+        $('#instruction-list li.selected').removeClass('selected');
+
+        // seleciona a instrução
         if (!wasSelected) {
             $(this).addClass('selected');
             me.selectedIndex = $(this).index();
@@ -81,8 +80,10 @@ ProgramDialog.prototype = {
             $('#update-instruction').show();
             $('#delete-instruction').show();
             $('#insert-instruction').hide();
-        }else{
-            
+        }
+        // deseleciona a instrução
+        else {
+            me.selectedIndex = -1;
             me.populateFields({});
             $('#update-instruction').hide();
             $('#delete-instruction').hide();
@@ -115,9 +116,8 @@ ProgramDialog.prototype = {
         $(this.html).dialog(this.config);
         document.getElementById('create-program').JSobj = this;
 
-        var instructionsCopy = instructions.slice();
-        for (i = 0; i < instructionsCopy.length; ++i) {
-            me.appendInstruction.call(me, instructionsCopy[i]);
+        for (i = 0; i < instructions.length; ++i) {
+            me.appendInstruction.call(me, instructions[i]);
         }
 
         $('#delete-instruction').button({
@@ -131,12 +131,14 @@ ProgramDialog.prototype = {
             icons: {primary: 'ui-icon-circle-plus'}
         });
         $('#insert-instruction').click(function() {
-            //
-            if($('#operation').is(':checked')){
-                me.appendInstruction(new SimpleInstruction(SimpleInstruction.TYPE_OPERATION,$("#operation-name").val(),$("#operation-nextLabel").val()))
-
-            }else if($('#condition').is(':checked')){
-                me.appendInstruction(new SimpleInstruction(SimpleInstruction.TYPE_TEST,$("#condition-testName").val(),$("#condition-trueLabel").val(),$("#condition-falseLabel").val()))
+            if ($('#operation').is(':checked')) {
+                me.appendInstruction(new SimpleInstruction(SimpleInstruction.TYPE_OPERATION,
+                        $("#operation-name").val(), $("#operation-nextLabel").val()));
+            }
+            else if ($('#condition').is(':checked')) {
+                me.appendInstruction(new SimpleInstruction(SimpleInstruction.TYPE_TEST,
+                        $("#condition-testName").val(), $("#condition-trueLabel").val(),
+                        $("#condition-falseLabel").val()));
             }
             me.populateFields({});
         });
@@ -144,13 +146,16 @@ ProgramDialog.prototype = {
         $('#update-instruction').button({
             icons: {primary: 'ui-icon-circle-check'}
         }).hide();
-            $('#update-instruction').click(function() {
-            //
-            if($('#operation').is(':checked')){
-                me.updateInstruction(me.selectedIndex,new SimpleInstruction(SimpleInstruction.TYPE_OPERATION,$("#operation-name").val(),$("#operation-nextLabel").val()))
-
-            }else if($('#condition').is(':checked')){
-                me.updateInstruction(me.selectedIndex,new SimpleInstruction(SimpleInstruction.TYPE_TEST,$("#condition-testName").val(),$("#condition-trueLabel").val(),$("#condition-falseLabel").val()))
+        $('#update-instruction').click(function() {
+            if ($('#operation').is(':checked')) {
+                me.updateInstruction(me.selectedIndex, new SimpleInstruction(
+                        SimpleInstruction.TYPE_OPERATION, $("#operation-name").val(),
+                        $("#operation-nextLabel").val()));
+            }
+            else if ($('#condition').is(':checked')) {
+                me.updateInstruction(me.selectedIndex, new SimpleInstruction(
+                        SimpleInstruction.TYPE_TEST, $("#condition-testName").val(),
+                        $("#condition-trueLabel").val(), $("#condition-falseLabel").val()));
             }
             me.populateFields({});
         });
@@ -161,19 +166,20 @@ ProgramDialog.prototype = {
      *
      * @param Instruction content O conteúdo da instrução a ser criada.
      */
-    appendInstruction: function(content) 
-    {
+    appendInstruction: function(content) {
         var me = this;
         me.instructions.push(content);
-        // atualizar lista
-        if($('#instruction-list').hasClass('empty'))
-        {
+
+        if ($('#instruction-list').hasClass('empty')) {
             $('#instruction-list').empty();
             $('#instruction-list').removeClass('empty');
         }
-        $('<li>'+me.instructions.length+': '+content.toString()+'</li>')
+
+        $('<li>' + me.instructions.length + ': ' + content.toString() + '</li>')
             .appendTo('#instruction-list')
-            .click(function(){me.toggleSelection.call(this,me)});
+            .click(function() {
+                me.toggleSelection.call(this, me);
+            });
     },
 
     /**
@@ -184,11 +190,12 @@ ProgramDialog.prototype = {
      * @param Instruction content O novo conteúdo para a instrução.
      */
     updateInstruction: function(index, content) {
-        this.instructions[index] = content;
-        // atualizar lista
-        console.log($('#instruction-list').get(index));
-        $($('#instruction-list').get(index)).html(content.toString());
-        
+        var me = this;
+        me.instructions[index] = content;
+
+        $($('#instruction-list li').get(index))
+            .html((index + 1) + ': ' + content.toString())
+            .removeClass('selected');
     },
 
     /**
