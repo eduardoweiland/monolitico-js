@@ -14,8 +14,9 @@ function showAboutDialog() {
         '<p><a href="http://eduardoweiland.info">Eduardo Weiland</a></p>' +
         '<p><a href="http://www.tcardosoti.com.br">Thiago Cardoso</a></p>' +
         '<br/><h3>Tecnologia</h3>' +
-        '<p>MonoliticoJS foi criado utilizando a linguagem Javascript e as bibliotecas ' +
-        '<a href="http://jquery.com">jQuery</a> e <a href="http://jqueryui.com">jQueryUI</a>.</p></div>')
+        '<p><span class="monolitico">MonoliticoJS</span> foi criado utilizando ' +
+        'a linguagem Javascript e as bibliotecas <a href="http://jquery.com">' +
+        'jQuery</a> e <a href="http://jqueryui.com">jQueryUI</a>.</p></div>')
     .dialog({
         show: 'fade',
         hide: 'fade',

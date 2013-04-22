@@ -195,7 +195,7 @@ ProgramDialog.prototype = {
 
         $($('#instruction-list li').get(index))
             .html((index + 1) + ': ' + content.toString())
-            .removeClass('selected');
+            .click();   // <- simula um clique para deselecionar
     },
 
     /**

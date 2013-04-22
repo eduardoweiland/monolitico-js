@@ -29,12 +29,7 @@ Program.parse = function(content) {
 Program.prototype = {
 
     /**
-     * Conteúdo original recebido no construtor.
-     */
-    rawcontent: '',
-
-    /**
-     * Vetor de instruções.
+     *
      * Armazena todas as instruções rotuladas do programa. Os dados são
      * armazenados como objetos do tipo Instruction.
      */
@@ -48,9 +43,17 @@ Program.prototype = {
      * @param String content O conteúdo do programa, definido em instruções
      *        rotuladas compostas no formato abreviado.
      */
-    init: function(content) {
-        this.rawcontent = content || '';
-        this.instructions = Program.parse(this.rawcontent);
+    init: function(simpleInstructions) {
+        // Array de CompoundInstruction's
+        this.instructions = [];
+
+        if (!$.isArray(simpleInstructions)) {
+            throw new TypeError('Invalid instructions set');
+        }
+
+        for (var i = 0; i < simpleInstructions.length; ++i) {
+            // TODO...
+        }
     },
 
     /**

@@ -1,25 +1,25 @@
-function CompositeInstruction() {
+function CompoundInstruction() {
     this.init.apply(this, arguments);
 }
 
 // -- static -- Propriedades e métodos estáticos da classe
 
-CompositeInstruction.TYPE_OPERATION    = 1;   // instrução comum (testes e operações, sem ciclos nem paradas)
-CompositeInstruction.TYPE_STOP         = 2;   // instrução que contém uma parada
-CompositeInstruction.TYPE_CYCLE        = 3;   // instrução que contém um ciclo
-CompositeInstruction.TYPE_FORMAL_STOP  = 4;   // instrução de parada para formalização (final do programa)
-CompositeInstruction.TYPE_FORMAL_CYCLE = 5;   // instrução de ciclo para formalização (final do programa)
+CompoundInstruction.TYPE_OPERATION    = 1;   // instrução comum (testes e operações, sem ciclos nem paradas)
+CompoundInstruction.TYPE_STOP         = 2;   // instrução que contém uma parada
+CompoundInstruction.TYPE_CYCLE        = 3;   // instrução que contém um ciclo
+CompoundInstruction.TYPE_FORMAL_STOP  = 4;   // instrução de parada para formalização (final do programa)
+CompoundInstruction.TYPE_FORMAL_CYCLE = 5;   // instrução de ciclo para formalização (final do programa)
 
-CompositeInstruction.LABEL_STOP_VALUE  = '&'; // valor para o rótulo de parada
-CompositeInstruction.LABEL_CYCLE_VALUE = 'w'; // valor para o rótulo de ciclo
+CompoundInstruction.LABEL_STOP_VALUE  = '&'; // valor para o rótulo de parada
+CompoundInstruction.LABEL_CYCLE_VALUE = 'w'; // valor para o rótulo de ciclo
 
-CompositeInstruction.LABEL_STOP_UTF8   = 'ε'; // representação do rótulo de parada (apenas para exibição)
-CompositeInstruction.LABEL_CYCLE_UTF8  = 'ω'; // representação do rótulo de ciclo (apenas para exibição)
+CompoundInstruction.LABEL_STOP_UTF8   = 'ε'; // representação do rótulo de parada (apenas para exibição)
+CompoundInstruction.LABEL_CYCLE_UTF8  = 'ω'; // representação do rótulo de ciclo (apenas para exibição)
 
 /**
  * Expressão regular utilizada para validar a string que representa a instrução.
  */
-CompositeInstruction.VALID_REGEX = /^([0-9w&]+):\((.+),([0-9w&]+)\),\((.+),([0-9w&]+)\)$/;
+CompoundInstruction.VALID_REGEX = /^([0-9w&]+):\((.+),([0-9w&]+)\),\((.+),([0-9w&]+)\)$/;
 
 /**
  * Analisa o conteúdo de @a content e retorna um vetor com os "pedaços" da
@@ -41,9 +41,9 @@ CompositeInstruction.VALID_REGEX = /^([0-9w&]+):\((.+),([0-9w&]+)\),\((.+),([0-9
  * @public
  * @static
  */
-CompositeInstruction.parse = function(content) {
+CompoundInstruction.parse = function(content) {
     // ignora espaços e separa os "pedaços" da instrução
-    var pieces = content.replace(/ /g, '').match(CompositeInstruction.VALID_REGEX);
+    var pieces = content.replace(/ /g, '').match(CompoundInstruction.VALID_REGEX);
 
     // Validação: verifica apenas o formato geral (não os valores)
     if (!(pieces && $.isArray(pieces) && pieces.length == 6)) {
@@ -56,7 +56,7 @@ CompositeInstruction.parse = function(content) {
 };
 
 // -- prototype -- Propriedades e métodos acessíveis pelo objeto
-CompositeInstruction.prototype = {
+CompoundInstruction.prototype = {
 
     /**
      * Conteúdo original recebido no construtor.
@@ -68,12 +68,6 @@ CompositeInstruction.prototype = {
      * Armazena o tipo da instrução (operação, parada, ciclo, etc.).
      */
     type: null,
-
-    /**
-     * Rótulo da instrução.
-     * Armazena o rótulo da instrução, no formato recebido (String).
-     */
-    label: null,
 
     firstOperation: null,
 
@@ -95,14 +89,14 @@ CompositeInstruction.prototype = {
         this.rawcontent = content || '';
 
         try {
-            var pieces = CompositeInstruction.parse(this.rawcontent);
+            var pieces = CompoundInstruction.parse(this.rawcontent);
             this.label = pieces[0];
             this.firstOperation  = pieces[1];
             this.firstSucessor   = pieces[2];
             this.secondOperation = pieces[3];
             this.secondSucessor  = pieces[4];
 
-            this.type = CompositeInstruction.TYPE_OPERATION;
+            this.type = CompoundInstruction.TYPE_OPERATION;
         }
         catch (e) {
             console.error(e.message);
@@ -125,19 +119,19 @@ CompositeInstruction.prototype = {
 
         // verifica se o tipo é válido
         switch (this.type) {
-            case CompositeInstruction.TYPE_OPERATION:
-            case CompositeInstruction.TYPE_STOP:
-            case CompositeInstruction.TYPE_CYCLE:
-            case CompositeInstruction.TYPE_FORMAL_STOP:
-            case CompositeInstruction.TYPE_FORMAL_CYCLE:
+            case CompoundInstruction.TYPE_OPERATION:
+            case CompoundInstruction.TYPE_STOP:
+            case CompoundInstruction.TYPE_CYCLE:
+            case CompoundInstruction.TYPE_FORMAL_STOP:
+            case CompoundInstruction.TYPE_FORMAL_CYCLE:
                 break;  // OK
             default:
                 return false;   // tipo inválido
         }
 
         // O rótulo deve ser a parada OU o ciclo OU um número decimal válido
-        if (this.label !== CompositeInstruction.LABEL_STOP_VALUE
-            && this.label !== CompositeInstruction.LABEL_CYCLE_VALUE
+        if (this.label !== CompoundInstruction.LABEL_STOP_VALUE
+            && this.label !== CompoundInstruction.LABEL_CYCLE_VALUE
             && isNaN(parseInt(this.label, 10))) {
             return false;
         }

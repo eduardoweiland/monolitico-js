@@ -52,6 +52,11 @@ input[type="text"] {
 input[type="text"]:focus { border-color: #38d; outline: none; }
 input[type="radio"] { margin-left: 0; }
 
+.monolitico {
+    font-variant: small-caps;
+    text-shadow: 1px 1px 0 #888;
+}
+
 /*--------+
  | HEADER |
  +--------*/
@@ -61,14 +66,14 @@ header {
     box-shadow: 0 3px 5px #222;
     background-image: url('images/header.jpg');
     position: fixed;
+    z-index: 99999;
 }
 
 header h1 {
     display: inline-block;
     font-size: 2.7em;
-    font-variant: small-caps;
-    text-shadow: 1px 2px 0 #888;
     margin-left: 15%;
+    text-shadow: 1px 2px 0 #888;
 }
 header div#header-buttons {
     float: right;
@@ -113,6 +118,12 @@ header div#header-buttons {
     position: relative;
     top: 40%;
     font-size: 1.8em;
+}
+
+#loading {
+    display: block;
+    margin: 0 auto;
+    padding: 15px
 }
 
 /*-----------------------+
