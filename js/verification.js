@@ -20,7 +20,8 @@ EquivalenceVerification = {
         for (i = 0; i < ln; ++i) {
             var trueIdx  = i,
                 falseIdx = i,
-                oldIdx;
+                first,
+                hasCicle = false;
 
             if (compoundIndexes.indexOf(i) === -1) {
                 continue;
@@ -46,13 +47,14 @@ EquivalenceVerification = {
                 }
             }
 
+            first = trueIdx;
             while (instr[trueIdx].type !== SimpleInstruction.TYPE_OPERATION) {
-                oldIdx = trueIdx;
                 trueIdx = instr[trueIdx].trueLabel;
 
-                if (oldIdx === trueIdx) {
+                if (first === trueIdx) {
                     debug[0] = 'ciclo';
                     debug[1] = 'w';
+                    hasCicle = true;
                     break;
                 }
                 if (trueIdx < 1 || trueIdx >= instr.length) {
@@ -64,13 +66,14 @@ EquivalenceVerification = {
                 debug[1] = compoundIndexes.indexOf(trueIdx) + 1;
             }
 
+            first = falseIdx;
             while (instr[falseIdx].type !== SimpleInstruction.TYPE_OPERATION) {
-                oldIdx = falseIdx;
                 falseIdx = instr[falseIdx].falseLabel;
 
-                if (oldIdx === falseIdx) {
+                if (first === falseIdx) {
                     debug[2] = 'ciclo';
                     debug[3] = 'w';
+                    hasCicle = true;
                     break;
                 }
                 if (falseIdx < 1 || falseIdx >= instr.length) {
@@ -84,6 +87,13 @@ EquivalenceVerification = {
 
             compound.push((compound.length+1)+': ('+debug[0]+','+debug[1]+'),('+debug[2]+','+debug[3]+')');
             console.log(compound[compound.length-1]);
+        }
+        
+        if (hasCicle) {
+            compound.push('w: (ciclo,w),(ciclo,w)');
+        }
+        else {
+            compound.push('&: (parada,&),(parada,&)');
         }
 
         return compound;
