@@ -9,6 +9,7 @@ EquivalenceVerification = {
             compoundIndexes = [],   // armazena os índices das instruções de operação
             instr = [SimpleInstruction.START].concat(simpleInstructions),
             ln = instr.length,
+            hasCicle = false,
             i;
 
         for (i = 0; i < ln; ++i) {
@@ -20,8 +21,7 @@ EquivalenceVerification = {
         for (i = 0; i < ln; ++i) {
             var trueIdx  = i,
                 falseIdx = i,
-                first,
-                hasCicle = false;
+                first;
 
             if (compoundIndexes.indexOf(i) === -1) {
                 continue;
@@ -95,6 +95,8 @@ EquivalenceVerification = {
         else {
             compound.push('&: (parada,&),(parada,&)');
         }
+
+        console.log(compound[compound.length-1]);
 
         return compound;
     },
