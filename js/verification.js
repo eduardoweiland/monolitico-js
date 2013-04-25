@@ -7,11 +7,13 @@ EquivalenceVerification = {
     firstStep: function (simpleInstructions) {
         var compound = [],
             compoundIndexes = [],   // armazena os índices das instruções de operação
-            ln = simpleInstructions.length,
+            instr = [SimpleInstruction.START].concat(simpleInstructions),
+            ln = instr.length,
+            hasCicle = false,
             i;
 
         for (i = 0; i < ln; ++i) {
-            if (simpleInstructions[i].type === SimpleInstruction.TYPE_OPERATION) {
+            if (instr[i].type === SimpleInstruction.TYPE_OPERATION) {
                 compoundIndexes.push(i);
             }
         }
@@ -19,62 +21,82 @@ EquivalenceVerification = {
         for (i = 0; i < ln; ++i) {
             var trueIdx  = i,
                 falseIdx = i,
-                oldIdx;
+                first;
 
             if (compoundIndexes.indexOf(i) === -1) {
                 continue;
             }
 
             var debug = [0,0,0,0];
-            if (simpleInstructions[i].type === SimpleInstruction.TYPE_OPERATION) {
-                trueIdx  = simpleInstructions[i].nextLabel - 1;
-                falseIdx = simpleInstructions[i].nextLabel - 1;
-//                continue;
-//                debug[0] = simpleInstructions[i].operation;
-//                debug[1] = compoundIndexes.indexOf(i) + 2;
-//                debug[2] = simpleInstructions[i].operation;
-//                debug[3] = compoundIndexes.indexOf(i) + 2;
+            if (instr[i].type === SimpleInstruction.TYPE_OPERATION) {
+                trueIdx  = instr[i].nextLabel;
+                falseIdx = instr[i].nextLabel;
+
+                debug[0] = instr[trueIdx].operation;
+                debug[1] = compoundIndexes.indexOf(trueIdx) + 1;
+                debug[2] = instr[falseIdx].operation;
+                debug[3] = compoundIndexes.indexOf(falseIdx) + 1;
+
+                if (trueIdx < 1 || trueIdx >= instr.length) {
+                    debug[0] = 'parada';
+                    debug[1] = 'e';
+                }
+                if (falseIdx < 1 || falseIdx >= instr.length) {
+                    debug[2] = 'parada';
+                    debug[3] = 'e';
+                }
             }
 
-            while (simpleInstructions[trueIdx].type !== SimpleInstruction.TYPE_OPERATION) {
-                oldIdx = trueIdx;
-                trueIdx = simpleInstructions[trueIdx].trueLabel - 1;
+            first = trueIdx;
+            while (instr[trueIdx].type !== SimpleInstruction.TYPE_OPERATION) {
+                trueIdx = instr[trueIdx].trueLabel;
 
-                if (oldIdx === trueIdx) {
+                if (first === trueIdx) {
                     debug[0] = 'ciclo';
                     debug[1] = 'w';
+                    hasCicle = true;
                     break;
                 }
-                if (trueIdx < 0 || trueIdx >= simpleInstructions.length) {
+                if (trueIdx < 1 || trueIdx >= instr.length) {
                     debug[0] = 'parada';
                     debug[1] = 'e';
                     break;
                 }
-                debug[0] = simpleInstructions[trueIdx].operation;
-                debug[1] = compoundIndexes.indexOf(trueIdx) + 2;
+                debug[0] = instr[trueIdx].operation;
+                debug[1] = compoundIndexes.indexOf(trueIdx) + 1;
             }
 
-            while (simpleInstructions[falseIdx].type !== SimpleInstruction.TYPE_OPERATION) {
-                oldIdx = falseIdx;
-                falseIdx = simpleInstructions[falseIdx].falseLabel - 1;
+            first = falseIdx;
+            while (instr[falseIdx].type !== SimpleInstruction.TYPE_OPERATION) {
+                falseIdx = instr[falseIdx].falseLabel;
 
-                if (oldIdx === falseIdx) {
+                if (first === falseIdx) {
                     debug[2] = 'ciclo';
                     debug[3] = 'w';
+                    hasCicle = true;
                     break;
                 }
-                if (falseIdx < 0 || falseIdx >= simpleInstructions.length) {
+                if (falseIdx < 1 || falseIdx >= instr.length) {
                     debug[2] = 'parada';
                     debug[3] = 'e';
                     break;
                 }
-                debug[2] = simpleInstructions[falseIdx].operation;
-                debug[3] = compoundIndexes.indexOf(falseIdx) + 2;
+                debug[2] = instr[falseIdx].operation;
+                debug[3] = compoundIndexes.indexOf(falseIdx) + 1;
             }
 
-            compound.push(compound.size+': ('+debug[0]+','+debug[1]+'),('+debug[2]+','+debug[3]+')');
-            console.log(compound[compound.size-1]);
+            compound.push((compound.length+1)+': ('+debug[0]+','+debug[1]+'),('+debug[2]+','+debug[3]+')');
+            console.log(compound[compound.length-1]);
         }
+        
+        if (hasCicle) {
+            compound.push('w: (ciclo,w),(ciclo,w)');
+        }
+        else {
+            compound.push('&: (parada,&),(parada,&)');
+        }
+
+        console.log(compound[compound.length-1]);
 
         return compound;
     },

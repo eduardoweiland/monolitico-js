@@ -65,12 +65,12 @@ SimpleInstruction.prototype = {
     init: function(type) {
         if (type === SimpleInstruction.TYPE_OPERATION && arguments.length === 3) {
             this.operation = arguments[1];
-            this.nextLabel = arguments[2];
+            this.nextLabel = parseInt(arguments[2]);
         }
         else if (type === SimpleInstruction.TYPE_TEST && arguments.length === 4) {
             this.testName   = arguments[1];
-            this.trueLabel  = arguments[2];
-            this.falseLabel = arguments[3];
+            this.trueLabel  = parseInt(arguments[2]);
+            this.falseLabel = parseInt(arguments[3]);
         }
         else {
             throw new Error("Invalid instruction type.");
@@ -84,7 +84,10 @@ SimpleInstruction.prototype = {
             return 'faça ' + this.operation + ' vá_para ' + this.nextLabel;
         }
         else if (this.type === SimpleInstruction.TYPE_TEST) {
-            return 'se ' + this.testName + ' entao vá_para ' + this.trueLabel + ' senão vá_para ' + this.falseLabel;
+            return 'se ' + this.testName + ' então vá_para ' + this.trueLabel + ' senão vá_para ' + this.falseLabel;
         }
     }
 }
+
+/// Define uma instrução fake para ser utilizada como partida
+SimpleInstruction.START = new SimpleInstruction(SimpleInstruction.TYPE_OPERATION, '', '1');
