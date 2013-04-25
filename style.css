@@ -154,3 +154,69 @@ header div#header-buttons {
     color: #fff;
     font-weight: bold;
 }
+
+#box1_esquerda{
+    width: 40%;
+    float: left;
+    text-align: center;
+}
+
+#box1_direita{
+    width: 40%;
+    float: right;
+    text-align: center;
+}
+
+
+#topo_box{
+    width: 25%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#clear{
+    clear: both;
+}
+
+hr{
+    width: 80%;
+    border: 2px solid #fff;
+    border-radius: 600px/6px;
+}
+
+#primeiro_texto{
+    font-size: 20px;
+    text-align: center;
+}
+
+
+#box2_esquerda{
+    width: 40%;
+    float: left;
+    text-align: center;
+}
+
+#box2_direita{
+    width: 40%;
+    float: right;
+    text-align: right;
+    text-align: center;
+}
+
+
+#topo_box2{
+    width: 25%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#segundo_texto{
+    font-size: 20px;
+    text-align: center;
+}
