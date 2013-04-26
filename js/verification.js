@@ -39,11 +39,11 @@ EquivalenceVerification = {
 
                 if (trueIdx < 1 || trueIdx >= instr.length) {
                     debug[0] = 'parada';
-                    debug[1] = 'e';
+                    debug[1] = CompoundInstruction.LABEL_STOP_UTF8;
                 }
                 if (falseIdx < 1 || falseIdx >= instr.length) {
                     debug[2] = 'parada';
-                    debug[3] = 'e';
+                    debug[3] = CompoundInstruction.LABEL_STOP_UTF8;
                 }
             }
 
@@ -53,13 +53,13 @@ EquivalenceVerification = {
 
                 if (first === trueIdx) {
                     debug[0] = 'ciclo';
-                    debug[1] = 'w';
+                    debug[1] = CompoundInstruction.LABEL_CYCLE_UTF8;
                     hasCicle = true;
                     break;
                 }
                 if (trueIdx < 1 || trueIdx >= instr.length) {
                     debug[0] = 'parada';
-                    debug[1] = 'e';
+                    debug[1] = CompoundInstruction.LABEL_STOP_UTF8;
                     break;
                 }
                 debug[0] = instr[trueIdx].operation;
@@ -72,13 +72,13 @@ EquivalenceVerification = {
 
                 if (first === falseIdx) {
                     debug[2] = 'ciclo';
-                    debug[3] = 'w';
+                    debug[3] = CompoundInstruction.LABEL_CYCLE_UTF8;
                     hasCicle = true;
                     break;
                 }
                 if (falseIdx < 1 || falseIdx >= instr.length) {
                     debug[2] = 'parada';
-                    debug[3] = 'e';
+                    debug[3] = CompoundInstruction.LABEL_STOP_UTF8;
                     break;
                 }
                 debug[2] = instr[falseIdx].operation;
@@ -88,12 +88,12 @@ EquivalenceVerification = {
             compound.push((compound.length+1)+': ('+debug[0]+','+debug[1]+'),('+debug[2]+','+debug[3]+')');
             console.log(compound[compound.length-1]);
         }
-        
+
         if (hasCicle) {
-            compound.push('w: (ciclo,w),(ciclo,w)');
+            compound.push(CompoundInstruction.LABEL_CYCLE_UTF8 + ': (ciclo,' + CompoundInstruction.LABEL_CYCLE_UTF8 + '),(ciclo,' + CompoundInstruction.LABEL_CYCLE_UTF8 + ')');
         }
         else {
-            compound.push('&: (parada,&),(parada,&)');
+            compound.push(CompoundInstruction.LABEL_STOP_UTF8 + ': (parada,' + CompoundInstruction.LABEL_STOP_UTF8 + '),(parada,' + CompoundInstruction.LABEL_STOP_UTF8 + ')');
         }
 
         console.log(compound[compound.length-1]);
@@ -106,6 +106,8 @@ EquivalenceVerification = {
      * Definição da cadeia de conjuntos.
      */
     secondStep: function(compoundInstructions) {
+        var sets = [];
+        return sets;
     },
 
     /**

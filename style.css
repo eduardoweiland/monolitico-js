@@ -39,6 +39,8 @@ a:hover { text-decoration: underline; }
 /* componentes que necessitam de Javascript para funcionar iniciam ocultos */
 .js { display: none; }
 
+.clear { clear: both; }
+
 input[type="text"] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -155,68 +157,35 @@ header div#header-buttons {
     font-weight: bold;
 }
 
-#box1_esquerda{
-    width: 40%;
-    float: left;
+/*---------------------+
+ | VERIFICATION RESULT |
+ +---------------------*/
+#verification-result .step {
+    width: 100%;
+    margin: 35px 0;
+    display: none;  /* todos começam ocultos */
+}
+
+#verification-result .step-title {
+    font-size: 20px;
     text-align: center;
+    line-height: 170%;
+    text-shadow: 0 0 5px black;
 }
 
-#box1_direita{
-    width: 40%;
-    float: right;
+#verification-result .box {
+    width: 50%;
     text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.4em;
 }
 
+#verification-result .box.left  { float: left; }
+#verification-result .box.right { float: right; }
 
-#topo_box{
-    width: 25%;
-    margin: 0 auto;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-#clear{
-    clear: both;
-}
-
-hr{
+#verification-result hr {
     width: 80%;
     border: 2px solid #fff;
     border-radius: 600px/6px;
-}
-
-#primeiro_texto{
-    font-size: 20px;
-    text-align: center;
-}
-
-
-#box2_esquerda{
-    width: 40%;
-    float: left;
-    text-align: center;
-}
-
-#box2_direita{
-    width: 40%;
-    float: right;
-    text-align: right;
-    text-align: center;
-}
-
-
-#topo_box2{
-    width: 25%;
-    margin: 0 auto;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-#segundo_texto{
-    font-size: 20px;
-    text-align: center;
+    margin: 45px auto;
 }

@@ -37,21 +37,30 @@ $(function() {
     });
 
     $('#verify').click(function() {
-        EquivalenceVerification.firstStep(pr1Instr);
-//        $('#loading').show();
-//        var program1 = new Program(pr1Instr),
-//            program2 = new Program(pr2Instr);
+        $('#loading').fadeIn();
 
-//        $('#verification-result').empty();
+        var prog1firstStep = EquivalenceVerification.firstStep(pr1Instr),
+            prog2firstStep = EquivalenceVerification.firstStep(pr2Instr);
+        $('#first-step .box.left') .html(prog1firstStep.join('<br/>'));
+        $('#first-step .box.right').html(prog2firstStep.join('<br/>'));
+        $('#first-step').fadeIn();
+        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
-//        try {
-//            program1.compareTo(program2, 'verification-result');
-//        }
-//        catch (e) {
-//            //
-//        }
+        var prog1secondStep = EquivalenceVerification.secondStep(prog1firstStep),
+            prog2secondStep = EquivalenceVerification.secondStep(prog2firstStep);
+        $('#second-step .box.left') .html(prog1secondStep.join('<br/>'));
+        $('#second-step .box.right').html(prog2secondStep.join('<br/>'));
+        $('#second-step').fadeIn();
+        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
-//        $('#loading').fadeOut();
+//        var prog1thirdStep = EquivalenceVerification.thirdStep(prog1firstStep),
+//            prog2thirdStep = EquivalenceVerification.thirdStep(prog2firstStep);
+//        $('#third-step .box.left') .html(prog1thirdStep.join('<br/>'));
+//        $('#third-step .box.right').html(prog2thirdStep.join('<br/>'));
+//        $('#third-step').fadeIn();
+//        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
+
+        $('#loading').fadeOut();
     });
 
     $('#about').click(function() { showAboutDialog(); });

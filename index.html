@@ -40,7 +40,7 @@
             <button id="verify" style="display:block;clear:both;margin:0 auto">VERIFICAR EQUIVALÊNCIA</button>
         </div>
 
-        <div class="ui-widget nojs"> 
+        <div class="ui-widget nojs">
             <div class="ui-state-error ui-corner-all" style="padding: 1.2em 1.5em;">
                 <p><span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-alert"></span>
                     <strong>JAVASCRIPT DESABILITADO</strong></p>
@@ -51,45 +51,32 @@
         </div>
 
         <div id="verification-result">
-                <div id="topo_box">
-                    <div id="primeiro_texto" class="primeiro_texto">
-                        1º PASSO
-                    </div>
-                </div>
-                <div id="box1_esquerda">
-                    <div id="primeiro_esquerda" class="primeiro_esquerda">
-                        1: (F,2), (F,2)<br />
-                        5: (G,5), (&,parada)
-                    </div>
-                </div>
-                <div id="box1_direita">
-                    <div id="primeiro_direita" class="primeiro_direita">
-                        1: (F,2), (F,2)<br />
-                        5: (G,5), (&,parada)
-                    </div>
-                </div>
-            <div id="clear"></div>
-            <hr>
-                 <div id="topo_box2">
-                    <div id="segundo_texto" class="segundo_texto">
-                        2º PASSO
-                    </div>
-                </div>
-                <div id="box2_esquerda">
-                    <div id="segundo_esquerda" class="segundo_esquerda">
-                        A0 = { }<br />
-                        A1 = { }
-                    </div>
-                </div>
-                <div id="box2_direita">
-                    <div id="segundo_direita" class="segundo_direita">
-                        A0 = { }<br />
-                        A1 = { }
-                    </div>
-                </div>
+            <div id="first-step" class="step">
+                <div class="step-title">1&ordm; PASSO</div>
+                <div class="box left">1: (G,3),(F,2)<br/>1: (G,3),(F,2)<br/>1: (G,3),(F,2)</div>
+                <div class="box right">1: (G,3),(F,2)<br/>1: (G,3),(F,2)<br/>1: (G,3),(F,2)</div>
+                <div class="clear"></div>
+                <hr/>
             </div>
-            <div id="clear"></div>
-            <hr>
+            <div id="second-step" class="step">
+                <div class="step-title">2&ordm; PASSO</div>
+                <div class="box left">1: (G,3),(F,2)<br/>1: (G,3),(F,2)<br/>1: (G,3),(F,2)</div>
+                <div class="box right">1: (G,3),(F,2)<br/>1: (G,3),(F,2)<br/>1: (G,3),(F,2)</div>
+                <div class="clear"></div>
+                <hr/>
+            </div>
+            <div id="third-step" class="step">
+                <div class="step-title">3&ordm; PASSO</div>
+                <div class="box left">1: (G,3),(F,2)<br/>1: (G,3),(F,2)<br/>1: (G,3),(F,2)</div>
+                <div class="box right">1: (G,3),(F,2)<br/>1: (G,3),(F,2)<br/>1: (G,3),(F,2)</div>
+                <div class="clear"></div>
+                <hr/>
+            </div>
+            <div id="fourth-step" class="step">
+                <div class="step-title">4&ordm; PASSO</div>
+                <div class="clear"></div>
+                <!-- TODO -->
+            </div>
         </div>
         <img id="loading" src="images/loading.gif" style="display:none" />
 </body>
