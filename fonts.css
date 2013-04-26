@@ -1,0 +1,19 @@
+/* Google Web Fonts */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Noto Sans'), local('NotoSans'), url('fonts/NotoSans.woff') format('woff');
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Code Pro'), local('SourceCodePro-Regular'), url('fonts/SourceCodePro.woff') format('woff');
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Source Code Pro Bold'), local('SourceCodePro-Bold'), url('fonts/SourceCodePro-Bold.woff') format('woff');
+}

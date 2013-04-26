@@ -106,7 +106,39 @@ EquivalenceVerification = {
      * Definição da cadeia de conjuntos.
      */
     secondStep: function(compoundInstructions) {
-        var sets = [];
+        var appendSet = function(sets, indexes) {
+            var ln = sets.length,
+                content = sets[ln - 1].match(/{(.*)}/)[1];
+            sets.push('A' + ln + ' = {' + content + ', ' + indexes.join(', ') + '}');
+        };
+
+        var sets = ['A0 = {' + CompoundInstruction.LABEL_STOP_UTF8 + '}'],
+            i;
+
+        // procura a última parada
+        for (i = compoundInstructions.length - 2; i >= 0; --i) {
+            if (compoundInstructions[i].indexOf(CompoundInstruction.LABEL_STOP_UTF8) > -1) {
+                appendSet(sets, [i + 1]);
+                break;
+            }
+        }
+
+        var ignore = [];
+        while (--i) {
+            if ($.inArray(i, ignore) === -1) {
+                var idx = [i + 1], j;
+                for (j = i - 1; j >= 0; --j) {
+                    if (compoundInstructions[j].split(':')[1] === compoundInstructions[i].split(':')[1]) {
+                        idx.push(j + 1);
+                        ignore.push(j);
+                    }
+                }
+                appendSet(sets, idx);
+            }
+        }
+
+        sets.push('A' + sets.length + ' =' + sets[sets.length - 1].split('=')[1]);
+
         return sets;
     },
 
@@ -121,6 +153,6 @@ EquivalenceVerification = {
      * Quarto passo da verificação de equivalência.
      * Comparação dos rótulos.
      */
-    fourthStep: function(TODO) {
+    fourthStep: function(simplified1, simplified2) {
     }
 };
