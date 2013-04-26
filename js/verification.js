@@ -123,10 +123,12 @@ EquivalenceVerification = {
             }
         }
 
+        // verifica todas as instruções do programa acima da parada
         var ignore = [];
         while (--i) {
             if ($.inArray(i, ignore) === -1) {
                 var idx = [i + 1], j;
+                // procura instruções repetidas
                 for (j = i - 1; j >= 0; --j) {
                     if (compoundInstructions[j].split(':')[1] === compoundInstructions[i].split(':')[1]) {
                         idx.push(j + 1);

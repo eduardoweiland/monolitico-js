@@ -39,19 +39,20 @@ $(function() {
     $('#verify').click(function() {
         $('#loading').fadeIn();
 
-        var prog1firstStep = EquivalenceVerification.firstStep(pr1Instr),
-            prog2firstStep = EquivalenceVerification.firstStep(pr2Instr);
-        $('#first-step .box.left') .html(prog1firstStep.join('<br/>'));
-        $('#first-step .box.right').html(prog2firstStep.join('<br/>'));
-        $('#first-step').fadeIn();
-        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
+        try {
+            var prog1firstStep = EquivalenceVerification.firstStep(pr1Instr),
+                prog2firstStep = EquivalenceVerification.firstStep(pr2Instr);
+            $('#first-step .box.left') .html(prog1firstStep.join('<br/>'));
+            $('#first-step .box.right').html(prog2firstStep.join('<br/>'));
+            $('#first-step').fadeIn();
+            $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
-        var prog1secondStep = EquivalenceVerification.secondStep(prog1firstStep),
-            prog2secondStep = EquivalenceVerification.secondStep(prog2firstStep);
-        $('#second-step .box.left') .html(prog1secondStep.join('<br/>'));
-        $('#second-step .box.right').html(prog2secondStep.join('<br/>'));
-        $('#second-step').fadeIn();
-        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
+            var prog1secondStep = EquivalenceVerification.secondStep(prog1firstStep),
+                prog2secondStep = EquivalenceVerification.secondStep(prog2firstStep);
+            $('#second-step .box.left') .html(prog1secondStep.join('<br/>'));
+            $('#second-step .box.right').html(prog2secondStep.join('<br/>'));
+            $('#second-step').fadeIn();
+            $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
 //        var prog1thirdStep = EquivalenceVerification.thirdStep(prog1firstStep),
 //            prog2thirdStep = EquivalenceVerification.thirdStep(prog2firstStep);
@@ -59,6 +60,11 @@ $(function() {
 //        $('#third-step .box.right').html(prog2thirdStep.join('<br/>'));
 //        $('#third-step').fadeIn();
 //        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
+
+        }
+        catch (e) {
+            alert('Erro ao analisar programa:\n' + e.message);
+        }
 
         $('#loading').fadeOut();
     });

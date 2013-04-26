@@ -42,4 +42,5 @@ A5 = {e,6,5,4,3,2,1}                      || A5 = {e,5,4,3,2,1}
 6: (parada,e),(ciclo,w)                   ||
 w: (ciclo,w),(ciclo,w)                    ||
                                           ||
-              QUARTO PASSO                ||
+
+                                     QUARTO PASSO
