@@ -148,7 +148,23 @@ EquivalenceVerification = {
      * Terceiro passo da verificação de equivalência.
      * Simplificação dos ciclos infinitos (caso necessário).
      */
-    thirdStep: function(sets) {
+    thirdStep: function(compoundInstructions, labelsIn) {
+        var simplified = [],
+            labels = labelsIn.split('{')[1].slice(0, -1).split(', '),
+            ln = compoundInstructions.length,
+            toRemove = [],
+            i;
+
+        console.log(compoundInstructions);
+        console.log(labelsIn);
+
+        for (i = 1; i < ln - 1; ++i) {
+            if ($.inArray(String(i), labels) > -1) {
+                simplified.push(compoundInstructions[i - 1]);
+            }
+        }
+
+        return simplified;
     },
 
     /**

@@ -54,12 +54,12 @@ $(function() {
             $('#second-step').fadeIn();
             $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
-//        var prog1thirdStep = EquivalenceVerification.thirdStep(prog1firstStep),
-//            prog2thirdStep = EquivalenceVerification.thirdStep(prog2firstStep);
-//        $('#third-step .box.left') .html(prog1thirdStep.join('<br/>'));
-//        $('#third-step .box.right').html(prog2thirdStep.join('<br/>'));
-//        $('#third-step').fadeIn();
-//        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
+        var prog1thirdStep = EquivalenceVerification.thirdStep(prog1firstStep, prog1secondStep[prog1secondStep.length - 1]),
+            prog2thirdStep = EquivalenceVerification.thirdStep(prog2firstStep, prog2secondStep[prog2secondStep.length - 1]);
+        $('#third-step .box.left') .html(prog1thirdStep.join('<br/>'));
+        $('#third-step .box.right').html(prog2thirdStep.join('<br/>'));
+        $('#third-step').fadeIn();
+        $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
         }
         catch (e) {
