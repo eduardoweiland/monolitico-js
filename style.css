@@ -1,3 +1,21 @@
+/**************************************************************************
+ *  This file is part of MonoliticoJS                                     *
+ *  Copyright (C) 2013 Eduardo Weiland and Thiago Cardoso                 *
+ *                                                                        *
+ *  This program is free software: you can redistribute it and/or modify  *
+ *  it under the terms of the GNU General Public License as published by  *
+ *  the Free Software Foundation, either version 3 of the License, or     *
+ *  (at your option) any later version.                                   *
+ *                                                                        *
+ *  This program is distributed in the hope that it will be useful,       *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *  GNU General Public License for more details.                          *
+ *                                                                        *
+ *  You should have received a copy of the GNU General Public License     *
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>  *
+ **************************************************************************/
+
 /*-------------------------------------------+
  | MINIMAL CSS RESET                         |
  | http://meyerweb.com/eric/tools/css/reset/ |
@@ -27,8 +45,7 @@ body {
     font-size: 14px;
 }
 * { font-family: 'Noto Sans', Cantarell, Verdana, sans-serif !important; }
-/* *:hover > a { text-decoration: underline; }*/
-a, a:active, a:visited { text-decoration: none; }
+a, a:active, a:visited { text-decoration: none; color: #026 !important; }
 a:hover { text-decoration: underline; }
 
 .smile { display: inline-block; transform: rotate(90deg); }

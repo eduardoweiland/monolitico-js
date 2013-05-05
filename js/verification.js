@@ -1,3 +1,21 @@
+/**************************************************************************
+ *  This file is part of MonoliticoJS                                     *
+ *  Copyright (C) 2013 Eduardo Weiland and Thiago Cardoso                 *
+ *                                                                        *
+ *  This program is free software: you can redistribute it and/or modify  *
+ *  it under the terms of the GNU General Public License as published by  *
+ *  the Free Software Foundation, either version 3 of the License, or     *
+ *  (at your option) any later version.                                   *
+ *                                                                        *
+ *  This program is distributed in the hope that it will be useful,       *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *  GNU General Public License for more details.                          *
+ *                                                                        *
+ *  You should have received a copy of the GNU General Public License     *
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>  *
+ **************************************************************************/
+
 EquivalenceVerification = {
 
     /**
@@ -135,7 +153,7 @@ EquivalenceVerification = {
             if ($.inArray(i, ignore) === -1) {
                 var idx = [i + 1], j;
                 // procura instruções repetidas
-                for (j = compoundInstructions.length - 1; j >= 0; --j) {
+                for (j = compoundInstructions.length - 2; j >= 0; --j) {
                     if (j !== i && compoundInstructions[j].split(':')[1] === compoundInstructions[i].split(':')[1]) {
                         idx.push(j + 1);
                         ignore.push(j);
