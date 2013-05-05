@@ -86,7 +86,6 @@ EquivalenceVerification = {
             }
 
             compound.push((compound.length+1)+': ('+debug[0]+','+debug[1]+'),('+debug[2]+','+debug[3]+')');
-            console.log(compound[compound.length-1]);
         }
 
         if (hasCicle) {
@@ -95,8 +94,6 @@ EquivalenceVerification = {
         else {
             compound.push(CompoundInstruction.LABEL_STOP_UTF8 + ': (parada,' + CompoundInstruction.LABEL_STOP_UTF8 + '),(parada,' + CompoundInstruction.LABEL_STOP_UTF8 + ')');
         }
-
-        console.log(compound[compound.length-1]);
 
         return compound;
     },
@@ -108,36 +105,45 @@ EquivalenceVerification = {
     secondStep: function(compoundInstructions) {
         var appendSet = function(sets, indexes) {
             var ln = sets.length,
-                content = sets[ln - 1].match(/{(.*)}/)[1];
-            sets.push('A' + ln + ' = {' + content + ', ' + indexes.join(', ') + '}');
+                content = sets[ln - 1].match(/{(.*)}/)[1].split(', '),
+                first = content.shift();
+
+            content = content.concat(indexes);
+            content.sort(function(a, b) {
+                return a - b;
+            });
+            content.reverse();
+
+            sets.push('A' + ln + ' = {' + first + ', ' + content.join(', ') + '}');
         };
 
         var sets = ['A0 = {' + CompoundInstruction.LABEL_STOP_UTF8 + '}'],
+            lastStop = -1,
             i;
 
         // procura a última parada
         for (i = compoundInstructions.length - 2; i >= 0; --i) {
             if (compoundInstructions[i].indexOf(CompoundInstruction.LABEL_STOP_UTF8) > -1) {
-                appendSet(sets, [i + 1]);
+                lastStop = i;
                 break;
             }
         }
 
         // verifica todas as instruções do programa acima da parada
         var ignore = [];
-        while (--i) {
+        do {
             if ($.inArray(i, ignore) === -1) {
                 var idx = [i + 1], j;
                 // procura instruções repetidas
-                for (j = i - 1; j >= 0; --j) {
-                    if (compoundInstructions[j].split(':')[1] === compoundInstructions[i].split(':')[1]) {
+                for (j = compoundInstructions.length - 1; j >= 0; --j) {
+                    if (j !== i && compoundInstructions[j].split(':')[1] === compoundInstructions[i].split(':')[1]) {
                         idx.push(j + 1);
                         ignore.push(j);
                     }
                 }
                 appendSet(sets, idx);
             }
-        }
+        } while (i-- > 0);
 
         sets.push('A' + sets.length + ' =' + sets[sets.length - 1].split('=')[1]);
 
@@ -152,16 +158,39 @@ EquivalenceVerification = {
         var simplified = [],
             labels = labelsIn.split('{')[1].slice(0, -1).split(', '),
             ln = compoundInstructions.length,
-            toRemove = [],
+            hasCicle = (compoundInstructions[ln - 1].indexOf(CompoundInstruction.LABEL_CYCLE_UTF8) > -1),
             i;
 
-        console.log(compoundInstructions);
-        console.log(labelsIn);
+        for (i = 0; i < ln; ++i) {
+            var instr = compoundInstructions[i];
 
-        for (i = 1; i < ln - 1; ++i) {
-            if ($.inArray(String(i), labels) > -1) {
-                simplified.push(compoundInstructions[i - 1]);
+            // testa se essa instrução está fora dos limites do programa
+            if ($.inArray(String(i + 1), labels) === -1) {
+                continue;
             }
+
+            // verifica se a instrução referencia um rótulo que deve ser eliminado
+            var match = compoundInstructions[i].match(/(\([^)]*\))/g), j;
+            for (j = 0; j < 2; ++j) {
+                if ($.inArray(match[j].split(',')[1].split(')')[0], labels) === -1) {
+                    match[j] = '(ciclo,' + CompoundInstruction.LABEL_CYCLE_UTF8 + ')';
+                    hasCicle = true;
+                }
+            }
+
+            simplified.push((i + 1) + ": " + match[0] + "," + match[1]);
+        }
+
+        if (hasCicle) {
+            simplified.push(CompoundInstruction.LABEL_CYCLE_UTF8 + ': (ciclo,' + CompoundInstruction.LABEL_CYCLE_UTF8 + '),(ciclo,' + CompoundInstruction.LABEL_CYCLE_UTF8 + ')');
+        }
+        else {
+            simplified.push(CompoundInstruction.LABEL_STOP_UTF8 + ': (parada,' + CompoundInstruction.LABEL_STOP_UTF8 + '),(parada,' + CompoundInstruction.LABEL_STOP_UTF8 + ')');
+        }
+
+        // se não houve simplificação, exibe apenas a mensagem informando isso
+        if (simplified.length === ln) {
+            simplified = ['Nenhum rótulo ficou fora do limite.', 'Não há simplificação.'];
         }
 
         return simplified;
