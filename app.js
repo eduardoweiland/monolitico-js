@@ -6,6 +6,7 @@ $(function() {
     $('button').button();
     $('#help') .button('option', 'icons', {primary: 'ui-icon-help'});
     $('#about').button('option', 'icons', {primary: 'ui-icon-info'});
+    $('.step-title').tooltip({position: {my: 'right top', at: 'right bottom'}});
     $('#verify').button('disable');
 
     var pr1Instr = [],  // instruções do programa 1
@@ -75,22 +76,7 @@ $(function() {
 
 
     var debug = function() {
-        var a, i, j, k, l, m, p = [[],[]];
-        for (i = 0; i < 2; ++i) {
-            j = Math.ceil(Math.random() * 10);
-            for (k = 0; k < j; ++k) {
-                l = Math.floor(Math.random() * 2);
-                m = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-                a = [l, m, Math.ceil(Math.random() * j)];
-                if (l) a.push(Math.ceil(Math.random() * 10));
-                p[i][k] = SimpleInstruction.apply(SimpleInstruction.prototype, a);
-            }
-        }
-
-        pr1Instr = p[0];
-        pr2Instr = p[1];
-        checkProgramDefined();
-        $('#verify').click();
+        $('.step').show();
     };
     (function(i){if(i.indexOf('debug')>i.indexOf('?')){debug()}})(document.location.href);
 
