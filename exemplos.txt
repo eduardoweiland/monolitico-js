@@ -1,46 +1,67 @@
-             PROGRAMA 1                   ||                PROGRAMA 2
-                                          ||
-1: se T então vápara 2 senão vápara 3     || 1: se T vápara 2 senão vápara 3
-2: faça G vápara 1                        || 2: faça G vápara 1
-3: faça F vápara 4                        || 3: faça F vápara 4
-4: se T então vápara 5 senão vápara 6     || 4: se T vápara 3 senão vápara 5
-5: faça F vápara 4                        || 5: faça G vápara 6
-6: faça G vápara 7                        || 6: se T vápara 7 senão vápara 8
-7: se T então vápara 8 senão vápara 9     || 7: faça F vápara 9
-8: faça F vápara 10                       || 8: faça F vápara 8
-9: se T então vápara 0 senão vápara 7     || 9: se T vápara 0 senão vápara 6
-10: se T então vápara 0 senão vápara 11   ||
-11: faça G vápara 11                      ||
-                                          ||
-             PRIMEIRO PASSO               ||             PRIMEIRO PASSO
-                                          ||
-1: (G,2),(F,3)                            || 1: (G,2),(F,3)
-2: (G,2),(F,3)                            || 2: (G,2),(F,3)
-3: (F,4),(G,5)                            || 3: (F,3),(G,4)
-4: (F,4),(G,5)                            || 4: (F,5),(F,6)
-5: (F,6),(ciclo,w)                        || 5: (parada,e),(F,6)
-6: (parada,e),(G,7)                       || 6: (F,6),(F,6)
-7: (G,7),(G,7)                            || e: (parada,e),(parada,e)
-w: (ciclo,w),(ciclo,w)                    ||
-                                          ||
-             SEGUNDO PASSO                ||             SEGUNDO PASSO
-                                          ||
-A0 = {e}                                  || A0 = {e}
-A1 = {e,6}                                || A1 = {e,5}
-A2 = {e,6,5}                              || A2 = {e,5,4}
-A3 = {e,6,5,4,3}                          || A3 = {e,5,4,3}
-A4 = {e,6,5,4,3,2,1}                      || A4 = {e,5,4,3,2,1}
-A5 = {e,6,5,4,3,2,1}                      || A5 = {e,5,4,3,2,1}
-                                          ||
-             TERCEIRO PASSO               ||             TERCEIRO PASSO
-                                          ||
-1: (G,2),(F,3)                            || 1: (G,2),(F,3)
-2: (G,2),(F,3)                            || 2: (G,2),(F,3)
-3: (F,4),(G,5)                            || 3: (F,3),(G,4)
-4: (F,4),(G,5)                            || 4: (F,5),(ciclo,w)
-5: (F,6),(ciclo,w)                        || 5: (parada,e),(ciclo,w)
-6: (parada,e),(ciclo,w)                   || w: (ciclo,w),(ciclo,w)
-w: (ciclo,w),(ciclo,w)                    ||
-                                          ||
-
+             PROGRAMA 1                   ║                PROGRAMA 2
+                                          ║
+1: se T então vápara 2 senão vápara 3     ║ 1: se T vápara 2 senão vápara 3
+2: faça G vápara 1                        ║ 2: faça G vápara 1
+3: faça F vápara 4                        ║ 3: faça F vápara 4
+4: se T então vápara 5 senão vápara 6     ║ 4: se T vápara 3 senão vápara 5
+5: faça F vápara 4                        ║ 5: faça G vápara 6
+6: faça G vápara 7                        ║ 6: se T vápara 7 senão vápara 8
+7: se T então vápara 8 senão vápara 9     ║ 7: faça F vápara 9
+8: faça F vápara 10                       ║ 8: faça F vápara 8
+9: se T então vápara 0 senão vápara 7     ║ 9: se T vápara 0 senão vápara 6
+10: se T então vápara 0 senão vápara 11   ║
+11: faça G vápara 11                      ║
+                                          ║
+             PRIMEIRO PASSO               ║             PRIMEIRO PASSO
+                                          ║
+1: (G,2),(F,3)                            ║ 1: (G,2),(F,3)
+2: (G,2),(F,3)                            ║ 2: (G,2),(F,3)
+3: (F,4),(G,5)                            ║ 3: (F,3),(G,4)
+4: (F,4),(G,5)                            ║ 4: (F,5),(F,6)
+5: (F,6),(ciclo,w)                        ║ 5: (parada,e),(F,6)
+6: (parada,e),(G,7)                       ║ 6: (F,6),(F,6)
+7: (G,7),(G,7)                            ║ e: (parada,e),(parada,e)
+w: (ciclo,w),(ciclo,w)                    ║
+                                          ║
+             SEGUNDO PASSO                ║             SEGUNDO PASSO
+                                          ║
+A0 = {e}                                  ║ A0 = {e}
+A1 = {e,6}                                ║ A1 = {e,5}
+A2 = {e,6,5}                              ║ A2 = {e,5,4}
+A3 = {e,6,5,4,3}                          ║ A3 = {e,5,4,3}
+A4 = {e,6,5,4,3,2,1}                      ║ A4 = {e,5,4,3,2,1}
+A5 = {e,6,5,4,3,2,1}                      ║ A5 = {e,5,4,3,2,1}
+                                          ║
+             TERCEIRO PASSO               ║             TERCEIRO PASSO
+                                          ║
+1: (G,2),(F,3)                            ║ 1: (G,2),(F,3)
+2: (G,2),(F,3)                            ║ 2: (G,2),(F,3)
+3: (F,4),(G,5)                            ║ 3: (F,3),(G,4)
+4: (F,4),(G,5)                            ║ 4: (F,5),(ciclo,w)
+5: (F,6),(ciclo,w)                        ║ 5: (parada,e),(ciclo,w)
+6: (parada,e),(ciclo,w)                   ║ w: (ciclo,w),(ciclo,w)
+w: (ciclo,w),(ciclo,w)                    ║
+                                          ║
+══════════════════════════════════════════╩══════════════════════════════════════════
                                      QUARTO PASSO
+
+                                1: (G,2),(F,3)
+                                2: (G,2),(F,3)
+                                3: (F,4),(G,5)
+                                4: (F,4),(G,5)
+                                5: (F,6),(ciclo,w)
+                                6: (parada,e),(ciclo,w)
+                                8: (G,9),(F,10)
+                                9: (G,9),(F,10)
+                                10: (F,10),(G11)
+                                11: (F,12),(ciclo,w)
+                                12: (parada,e),(ciclo,w)
+
+                                B0 = {(1,8)}
+                                B1 = {(2,9),(3,10)}
+                                B2 = {(4,10),(5,11)}
+                                B3 = {(6,12),(w,w)}
+                                B4 = {(e,e),(w,w)}
+                                B5 = Ø
+
+                                M1 ≡ M2
