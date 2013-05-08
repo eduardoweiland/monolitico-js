@@ -177,6 +177,23 @@ ProgramDialog.prototype = {
             }
             me.populateFields({});
         });
+
+       $('#delete-instruction').button({
+            icons: {primary: 'ui-icon-circle-check'}
+        }).hide();
+        $('#delete-instruction').click(function() {
+            if ($('#operation').is(':checked')) {
+                me.removeInstruction(me.selectedIndex, new SimpleInstruction(
+                        SimpleInstruction.TYPE_OPERATION, $("#operation-name").val(),
+                        $("#operation-nextLabel").val()));
+            }
+            else if ($('#condition').is(':checked')) {
+                me.removeInstruction(me.selectedIndex, new SimpleInstruction(
+                        SimpleInstruction.TYPE_TEST, $("#condition-testName").val(),
+                        $("#condition-trueLabel").val(), $("#condition-falseLabel").val()));
+            }
+            me.populateFields({});
+        });
     },
 
     /**
@@ -222,7 +239,17 @@ ProgramDialog.prototype = {
      * @param Number index Índice (rótulo) da instrução a ser removida.
      */
     removeInstruction: function(index) {
+         var me = this;
         this.instructions.splice(index, 1);
         // atualizar lista
+        $('#instruction-list').empty();
+         for (var i = 0; i < this.instructions.length; ++i) {
+
+            $('<li>' + (i + 1) + ': ' + me.instructions[i] + '</li>')
+            .appendTo('#instruction-list')
+            .click(function() {
+                me.toggleSelection.call(this, me);
+            });
+        }
     }
 }
