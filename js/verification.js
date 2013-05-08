@@ -208,7 +208,7 @@ EquivalenceVerification = {
 
         // se não houve simplificação, exibe apenas a mensagem informando isso
         if (simplified.length === ln) {
-            simplified = ['Nenhum rótulo ficou fora do limite.', 'Não há simplificação.'];
+            return false;
         }
 
         return simplified;
@@ -228,9 +228,15 @@ EquivalenceVerification = {
         // junta os dois programas em um só
         output = simplified1.slice(0, -1);
         for (i = 0; i < ln - idxSecond; ++i) {
-            var instr = simplified2[i].replace(/^(\d+).*(\d+).*(\d+).*$/);
-            console.log(instr);
+            var instr = simplified2[i].match(/^([0-9]+): ?\((.+),([0-9ωε]+)\),\((.+),([0-9ωε]+)\)$/),
+                label = (parseInt(instr[1]) ? parseInt(instr[1]) + idxSecond : instr[1]),
+                nextTrue = (parseInt(instr[3]) ? parseInt(instr[3]) + idxSecond : instr[3])
+                nextFalse = (parseInt(instr[5]) ? parseInt(instr[5]) + idxSecond : instr[5]);
+            output.push(label + ': (' + instr[2] + ',' + nextTrue + '),(' + instr[4] + ',' + nextFalse + ')');
         }
+
+        output.push('<br>');
+        output.push('B0 = {()}');
 
         return output;
     }

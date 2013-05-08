@@ -73,13 +73,14 @@ $(function() {
             $('#second-step').fadeIn('slow');
             $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
-            var prog1thirdStep = EquivalenceVerification.thirdStep(prog1firstStep, prog1secondStep[prog1secondStep.length - 1]),
+            var noSimplification = ['Nenhum rótulo ficou fora do limite.', 'Não há simplificação.'],
+                prog1thirdStep = EquivalenceVerification.thirdStep(prog1firstStep, prog1secondStep[prog1secondStep.length - 1]),
                 prog2thirdStep = EquivalenceVerification.thirdStep(prog2firstStep, prog2secondStep[prog2secondStep.length - 1]);
-            $('#third-step .box.left').html(prog1thirdStep.join('<br/>'));
-            $('#third-step .box.right').html(prog2thirdStep.join('<br/>'));
+            $('#third-step .box.left').html((prog1thirdStep || noSimplification).join('<br/>'));
+            $('#third-step .box.right').html((prog2thirdStep || noSimplification).join('<br/>'));
             $('#third-step').fadeIn('slow');
 
-            var fourthStep = EquivalenceVerification.fourthStep(prog1firstStep, prog2firstStep);
+            var fourthStep = EquivalenceVerification.fourthStep((prog1thirdStep || prog1firstStep), (prog2thirdStep || prog2firstStep));
             $('#fourth-step .box.full').html(fourthStep.join('<br/>'));
             $('#fourth-step').fadeIn('slow');
 
