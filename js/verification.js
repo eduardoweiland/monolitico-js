@@ -219,5 +219,19 @@ EquivalenceVerification = {
      * Comparação dos rótulos.
      */
     fourthStep: function(simplified1, simplified2) {
+        var output = [],
+            idxFirst = 0,
+            idxSecond = simplified1.length - 1,
+            ln = simplified1.length + simplified2.length -2,
+            i;
+
+        // junta os dois programas em um só
+        output = simplified1.slice(0, -1);
+        for (i = 0; i < ln - idxSecond; ++i) {
+            var instr = simplified2[i].replace(/^(\d+).*(\d+).*(\d+).*$/);
+            console.log(instr);
+        }
+
+        return output;
     }
 };

@@ -197,6 +197,7 @@ header div#header-buttons {
     line-height: 1.4em;
 }
 
+#verification-result .box.full { width: 100%; }
 #verification-result .box.left  { float: left; }
 #verification-result .box.right { float: right; }
 

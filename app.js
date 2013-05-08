@@ -63,21 +63,25 @@ $(function() {
                 prog2firstStep = EquivalenceVerification.firstStep(pr2Instr);
             $('#first-step .box.left') .html(prog1firstStep.join('<br/>'));
             $('#first-step .box.right').html(prog2firstStep.join('<br/>'));
-            $('#first-step').fadeIn();
+            $('#first-step').fadeIn('slow');
             $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
             var prog1secondStep = EquivalenceVerification.secondStep(prog1firstStep),
                 prog2secondStep = EquivalenceVerification.secondStep(prog2firstStep);
             $('#second-step .box.left') .html(prog1secondStep.join('<br/>'));
             $('#second-step .box.right').html(prog2secondStep.join('<br/>'));
-            $('#second-step').fadeIn();
+            $('#second-step').fadeIn('slow');
             $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
 
             var prog1thirdStep = EquivalenceVerification.thirdStep(prog1firstStep, prog1secondStep[prog1secondStep.length - 1]),
                 prog2thirdStep = EquivalenceVerification.thirdStep(prog2firstStep, prog2secondStep[prog2secondStep.length - 1]);
             $('#third-step .box.left').html(prog1thirdStep.join('<br/>'));
             $('#third-step .box.right').html(prog2thirdStep.join('<br/>'));
-            $('#third-step').fadeIn();
+            $('#third-step').fadeIn('slow');
+
+            var fourthStep = EquivalenceVerification.fourthStep(prog1firstStep, prog2firstStep);
+            $('#fourth-step .box.full').html(fourthStep.join('<br/>'));
+            $('#fourth-step').fadeIn('slow');
 
             $('html,body').animate({ scrollTop: $(document).height() }, 'slow');
         }

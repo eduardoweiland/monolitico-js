@@ -51,11 +51,11 @@ w: (ciclo,w),(ciclo,w)                    ║
                                 4: (F,4),(G,5)
                                 5: (F,6),(ciclo,w)
                                 6: (parada,e),(ciclo,w)
-                                8: (G,9),(F,10)
-                                9: (G,9),(F,10)
-                                10: (F,10),(G11)
-                                11: (F,12),(ciclo,w)
-                                12: (parada,e),(ciclo,w)
+                                7: (G,8),(F,9)
+                                8: (G,8),(F,9)
+                                9: (F,9),(G10)
+                                10: (F,11),(ciclo,w)
+                                11: (parada,e),(ciclo,w)
 
                                 B0 = {(1,8)}
                                 B1 = {(2,9),(3,10)}

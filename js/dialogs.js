@@ -33,7 +33,7 @@ function showAboutDialog() {
         '<p><span class="monolitico">MonoliticoJS</span> é software livre. Você ' +
         'pode redistribuí-lo e/ou modificá-lo sob os termos da Licença Pública ' +
         'Geral GNU, conforme publicada pela Free Software Foundation; tanto a ' +
-        'versão 3 da Licença como (à seu critério) qualquer versão mais nova.</p>' +
+        'versão 3 da Licença como (a seu critério) qualquer versão mais nova.</p>' +
         '<p><span class="monolitico">MonoliticoJS</span> é distribuído na ' +
         'expectativa de ser útil, mas SEM QUALQUER GARANTIA; sem mesmo a garantia ' +
         'implícita de COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM ' +
