@@ -74,6 +74,17 @@ ProgramDialog.prototype = {
         $('#condition-testName')  .val(instruction.testName);
         $('#condition-trueLabel') .val(instruction.trueLabel);
         $('#condition-falseLabel').val(instruction.falseLabel);
+
+        switch (instruction.type) {
+            case SimpleInstruction.TYPE_OPERATION:
+                $('#operation').prop('checked', true);
+                break;
+            case SimpleInstruction.TYPE_TEST:
+                $('#condition').prop('checked', true);
+                break;
+            default:
+                return false;
+        }
     },
 
     /**
@@ -138,13 +149,6 @@ ProgramDialog.prototype = {
             me.appendInstruction.call(me, instructions[i]);
         }
 
-        $('#delete-instruction').button({
-            icons: {primary: 'ui-icon-circle-close'},
-            click: function() {
-                //
-            }
-        }).hide();
-
         $('#insert-instruction').button({
             icons: {primary: 'ui-icon-circle-plus'}
         });
@@ -179,19 +183,10 @@ ProgramDialog.prototype = {
         });
 
        $('#delete-instruction').button({
-            icons: {primary: 'ui-icon-circle-check'}
+            icons: {primary: 'ui-icon-circle-close'}
         }).hide();
         $('#delete-instruction').click(function() {
-            if ($('#operation').is(':checked')) {
-                me.removeInstruction(me.selectedIndex, new SimpleInstruction(
-                        SimpleInstruction.TYPE_OPERATION, $("#operation-name").val(),
-                        $("#operation-nextLabel").val()));
-            }
-            else if ($('#condition').is(':checked')) {
-                me.removeInstruction(me.selectedIndex, new SimpleInstruction(
-                        SimpleInstruction.TYPE_TEST, $("#condition-testName").val(),
-                        $("#condition-trueLabel").val(), $("#condition-falseLabel").val()));
-            }
+            me.removeInstruction(me.selectedIndex);
             me.populateFields({});
         });
     },
@@ -239,17 +234,16 @@ ProgramDialog.prototype = {
      * @param Number index Índice (rótulo) da instrução a ser removida.
      */
     removeInstruction: function(index) {
-         var me = this;
-        this.instructions.splice(index, 1);
-        // atualizar lista
+        var me = this, i;
+        me.instructions.splice(index, 1);
         $('#instruction-list').empty();
-         for (var i = 0; i < this.instructions.length; ++i) {
 
-            $('<li>' + (i + 1) + ': ' + me.instructions[i] + '</li>')
-            .appendTo('#instruction-list')
-            .click(function() {
-                me.toggleSelection.call(this, me);
-            });
+        for (i = 0; i < me.instructions.length; ++i) {
+            $('<li>' + (i + 1) + ': ' + me.instructions[i].toString() + '</li>')
+                .appendTo('#instruction-list')
+                .click(function() {
+                    me.toggleSelection.call(this, me);
+                });
         }
     }
 }
