@@ -236,7 +236,30 @@ EquivalenceVerification = {
         }
 
         output.push('<br>');
-        output.push('B0 = {()}');
+
+        var verification = ['B0 = {(' + (idxFirst + 1) + ',' + (idxSecond + 1) + ')}'];
+        while (idxFirst < (simplified1.length - 1) && idxSecond < ln) {
+            var firstLabels = output[idxFirst].match(/^[0-9]+: ?\(.+,([0-9ωε]+)\),\(.+,([0-9ωε]+)\)$/),
+                secondLabels = output[idxSecond].match(/^[0-9]+: ?\(.+,([0-9ωε]+)\),\(.+,([0-9ωε]+)\)$/);
+
+            // TODO: verificar os tipos dos rótulos antes de adicionar
+
+            verification.push('B' + verification.length + ' = {(' +
+                  firstLabels[1] + ',' + secondLabels[1] + '),(' +
+                  firstLabels[2] + ',' + secondLabels[2] + ')}');
+            idxFirst++;
+            idxSecond++;
+        }
+
+        output = output.concat(verification);
+        output.push('<br>');
+
+        if (idxFirst === (simplified1.length - 1) && idxSecond === ln) {
+            output.push('Os dois programas são fortemente equivalentes');
+        }
+        else {
+            output.push('Os programas não são fortemente equivalentes');
+        }
 
         return output;
     }
