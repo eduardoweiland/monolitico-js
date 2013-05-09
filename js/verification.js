@@ -220,47 +220,85 @@ EquivalenceVerification = {
      */
     fourthStep: function(simplified1, simplified2) {
         var output = [],
-            idxFirst = 0,
-            idxSecond = simplified1.length - 1,
+            startFirst = 0,
+            startSecond = simplified1.length - 1,
             ln = simplified1.length + simplified2.length -2,
-            i;
+            i, j;
 
         // junta os dois programas em um só
         output = simplified1.slice(0, -1);
-        for (i = 0; i < ln - idxSecond; ++i) {
+        for (i = 0; i < ln - startSecond; ++i) {
             var instr = simplified2[i].match(/^([0-9]+): ?\((.+),([0-9ωε]+)\),\((.+),([0-9ωε]+)\)$/),
-                label = (parseInt(instr[1]) ? parseInt(instr[1]) + idxSecond : instr[1]),
-                nextTrue = (parseInt(instr[3]) ? parseInt(instr[3]) + idxSecond : instr[3])
-                nextFalse = (parseInt(instr[5]) ? parseInt(instr[5]) + idxSecond : instr[5]);
+                label = (parseInt(instr[1]) ? parseInt(instr[1]) + startSecond : instr[1]),
+                nextTrue = (parseInt(instr[3]) ? parseInt(instr[3]) + startSecond : instr[3])
+                nextFalse = (parseInt(instr[5]) ? parseInt(instr[5]) + startSecond : instr[5]);
             output.push(label + ': (' + instr[2] + ',' + nextTrue + '),(' + instr[4] + ',' + nextFalse + ')');
         }
 
         output.push('<br>');
 
-        var verification = ['B0 = {(' + (idxFirst + 1) + ',' + (idxSecond + 1) + ')}'];
+        // realiza a verificação
+        var verification = ['B0 = {(' + (startFirst + 1) + ',' + (startSecond + 1) + ')}'],
+            idxFirst = startFirst,
+            idxSecond = startSecond,
+            equivalents = true,
+            inLoop = false;
+
         while (idxFirst < (simplified1.length - 1) && idxSecond < ln) {
+            // verifica se uma instrução do primeiro programa já foi adicionada antes e "pula" ela
+            inLoop = true;
+            while (inLoop) {
+                inLoop = false;
+                for (j = idxFirst - 1; j >= 0; --j) {
+                    if (output[j].split(':')[1] === output[idxFirst].split(':')[1]) {
+                        inLoop = true;
+                        idxFirst++;
+                        break;
+                    }
+                }
+            }
+
+            // verifica se uma instrução do segundo programa já foi adicionada antes e "pula" ela
+            inLoop = true;
+            while (inLoop) {
+                inLoop = false;
+                for (j = idxSecond - 1; j >= startSecond; --j) {
+                    if (output[j].split(':')[1] === output[idxSecond].split(':')[1]) {
+                        inLoop = true;
+                        idxSecond++;
+                        break;
+                    }
+                }
+            }
+
             var firstLabels = output[idxFirst].match(/^[0-9]+: ?\(.+,([0-9ωε]+)\),\(.+,([0-9ωε]+)\)$/),
                 secondLabels = output[idxSecond].match(/^[0-9]+: ?\(.+,([0-9ωε]+)\),\(.+,([0-9ωε]+)\)$/);
-
-            // TODO: verificar os tipos dos rótulos antes de adicionar
 
             verification.push('B' + verification.length + ' = {(' +
                   firstLabels[1] + ',' + secondLabels[1] + '),(' +
                   firstLabels[2] + ',' + secondLabels[2] + ')}');
             idxFirst++;
             idxSecond++;
+
+            // se os tipos dos rótulos são diferentes (p. ex. parada x operação), já não são equivalentes
+            if ((firstLabels[1] !== secondLabels[1] && (isNaN(firstLabels[1]) || isNaN(secondLabels[1])))
+                    || (firstLabels[2] !== secondLabels[2] && (isNaN(firstLabels[2]) || isNaN(secondLabels[2])))) {
+                equivalents = false;
+                break;
+            }
         }
 
-        output = output.concat(verification);
-        output.push('<br>');
-
-        if (idxFirst === (simplified1.length - 1) && idxSecond === ln) {
-            output.push('Os dois programas são fortemente equivalentes');
+        // última verificação: não devem sobrar instruções em nenhum programa
+        if (equivalents && idxFirst === (simplified1.length - 1) && idxSecond === ln) {
+            verification.push('B' + verification.length + ' = &empty;');
+            verification.push('<br>');
+            verification.push('<span class="good">Os dois programas são fortemente equivalentes</span>');
         }
         else {
-            output.push('Os programas não são fortemente equivalentes');
+            verification.push('<br>');
+            verification.push('<span class="bad">Os programas não são fortemente equivalentes</span>');
         }
 
-        return output;
+        return output.concat(verification);
     }
 };

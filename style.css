@@ -207,3 +207,14 @@ header div#header-buttons {
     border-radius: 600px/6px;
     margin: 45px auto;
 }
+
+span.good {
+    color: green;
+    text-shadow: 0 0 5px darkgreen;
+    font-weight: bold;
+}
+span.bad {
+    color: red;
+    text-shadow: 0 0 5px darkred;
+    font-weight: bold;
+}
