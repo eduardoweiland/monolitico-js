@@ -1,0 +1,7 @@
+Para iniciar o programa, abra o arquivo "index.html" em qualquer um dos
+seguintes navegadores web:
+ * Chrome (18+)
+ * Firefox (15+)
+ * Internet Explorer (10+)
+ * Outros navegadores modernos (Opera, Safari, Konqueror, Epiphany) podem
+    funcionar, mas não foram testados.

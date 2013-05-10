@@ -238,6 +238,10 @@ ProgramDialog.prototype = {
         me.instructions.splice(index, 1);
         $('#instruction-list').empty();
 
+        $('#update-instruction').hide();
+        $('#delete-instruction').hide();
+        $('#insert-instruction').show();
+
         for (i = 0; i < me.instructions.length; ++i) {
             $('<li>' + (i + 1) + ': ' + me.instructions[i].toString() + '</li>')
                 .appendTo('#instruction-list')

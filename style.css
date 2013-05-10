@@ -74,6 +74,7 @@ input[type="radio"] { margin-left: 0; }
 .monolitico {
     font-variant: small-caps;
     text-shadow: 1px 1px 0 #d5d5d5;
+    color: #222 !important;
 }
 
 /*--------+
@@ -93,6 +94,10 @@ header h1 {
     font-size: 2.7em;
     margin-left: 15%;
     text-shadow: 1px 2px 0 #888;
+}
+header h1 a, header h1 a:active, header h1 a:visited, header h1 a:hover {
+    color: #222 !important;
+    text-decoration: none !important;
 }
 header div#header-buttons {
     float: right;
